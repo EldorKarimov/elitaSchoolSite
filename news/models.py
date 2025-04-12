@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
+from ckeditor_uploader.fields import RichTextUploadingField
 
 from common.models import BaseModel
 
@@ -31,7 +32,7 @@ class Tag(BaseModel):
 class News(BaseModel):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     slug = models.SlugField(max_length=255, unique=True)
-    content = models.TextField(verbose_name=_('content'))
+    content = RichTextUploadingField(verbose_name=_('content'))
     image = models.ImageField(upload_to='media/news/images', verbose_name=_('image'))
     is_published = models.BooleanField(default=False, verbose_name=_('published'))
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=_('user'))

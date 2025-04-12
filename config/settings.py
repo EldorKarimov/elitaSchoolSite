@@ -32,7 +32,9 @@ LOCAL_APPS = [
     'school',
 ]
 THIRD_PARTY_APPS = [
-
+    'ckeditor',
+    'ckeditor_uploader',
+    'modeltranslation',
 ]
 
 INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS
@@ -118,4 +120,39 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom user model
 AUTH_USER_MODEL = 'accounts.User'
+
+# CKEditor settings
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['TextColor', 'BGColor'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Maximize', 'ShowBlocks', 'Source'],
+        ],
+        'height': 400,
+        'width': '100%',
+    },
+    'extraPlugins': ','.join([
+        'codeSnippet'
+    ])
+}
+
+# Language settings
+LANGUAGES = [
+    ('uz', 'Oʻzbekcha'),
+    ('ru', 'Русский'),
+    ('en', 'English'),
+]
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'  # main language
+MODELTRANSLATION_LANGUAGES = ('uz', 'ru', 'en')  # Languages ​​to be translated

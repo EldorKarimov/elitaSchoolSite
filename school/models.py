@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
+from ckeditor_uploader.fields import RichTextUploadingField
 
 from common.models import BaseModel
 
@@ -31,7 +32,7 @@ class Teacher(BaseModel):
     image = models.ImageField(upload_to='media/accounts/teacher/', verbose_name=_('image'))
     experience = models.CharField(max_length=255, verbose_name=_('experience'))
     phone = models.CharField(max_length=13, verbose_name=_('phone'))
-    about = models.TextField(verbose_name=_('about teacher'))
+    about = RichTextUploadingField(verbose_name=_('about teacher'))
     hobbies = models.ManyToManyField(Hobby, verbose_name=_('hobbies'))
     sciences = models.ManyToManyField(Science, verbose_name=_('sciences'))
 
@@ -78,7 +79,7 @@ class SchoolClass(BaseModel):
     size = models.PositiveIntegerField(default=20, verbose_name=_('size'))
     transportation = models.CharField(max_length=11, choices=TransportationChoices.choices)
     food = models.CharField(max_length=50, verbose_name=_('food'))
-    description = models.TextField(verbose_name=_('description'))
+    description = RichTextUploadingField(verbose_name=_('description'))
     head_teacher = models.ForeignKey(
         Teacher,
         on_delete=models.SET_NULL,
