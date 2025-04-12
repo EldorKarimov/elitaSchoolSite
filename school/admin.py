@@ -58,3 +58,52 @@ class TeacherAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" width="100" />', obj.image.url)
         return "-"
     image_preview.short_description = _('Image Preview')
+
+
+class SchoolClassImageInline(admin.TabularInline):
+    model = SchoolClassImage
+    extra = 1
+    fields = ('image', )
+
+@admin.register(SchoolClass)
+class SchoolClassAdmin(admin.ModelAdmin):
+    list_display = ('name', 'start_date', 'size', 'transportation', 'head_teacher', 'num_of_pupils')
+    list_filter = ('start_date', 'transportation', 'head_teacher')
+    search_fields = ('name', 'description')
+    filter_horizontal = ('teachers',)
+    inlines = (SchoolClassImageInline, )
+    fieldsets = (
+        (_('Basic Information'), {
+            'fields': ('name', 'slug', 'description')
+        }),
+        (_('Class Details'), {
+            'fields': ('start_date', 'size', 'transportation', 'food')
+        }),
+        (_('Schedule'), {
+            'fields': ('lesson_start', 'lesson_end')
+        }),
+        (_('Teachers'), {
+            'fields': ('head_teacher', 'teachers')
+        }),
+        (_('Students'), {
+            'fields': ('num_of_pupils',)
+        }),
+    )
+    prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(GalleryCategory)
+class GalleryCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+
+@admin.register(Gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'gallery_category', 'image')
+    list_filter = ('gallery_category',)
+    search_fields = ('title', 'gallery_category__name')
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'gallery_category', 'image')
+        }),
+    )
