@@ -94,6 +94,23 @@ class SchoolClass(BaseModel):
 
     def __str__(self):
         return str(self.name)
+    
+    def get_first_image(self):
+        """Helper method to get the first image URL"""
+        image = self.schoolclassimage_set.first()
+        return image.image.url if image else None
+    
+    def get_formatted_date(self):
+        """Method for formatting dates: MM DD"""
+        if self.start_date:
+            return self.start_date.strftime("%b %d")
+        return ""
+    
+    def get_formatted_year(self):
+        """Method for formatting the year: YYYY"""
+        if self.start_date:
+            return self.start_date.strftime("%Y")
+        return ""
 
     class Meta:
         verbose_name = _('class')
