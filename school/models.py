@@ -28,6 +28,15 @@ class Hobby(BaseModel):
         verbose_name_plural = _('hobbies')
     
 class Teacher(BaseModel):
+    DEGREE_CHOICES = [
+        ('BACHELOR', _("Bachelor")),
+        ('MASTER', _("Master")),
+        ('PHD', _("PhD")),
+        ('DSC', _("Doctor of Science (DSc)")),  # Doctor of Sciences
+        ('PROFESSOR', _("Professor")),
+        ('ASSOCIATE_PROF', _("Associate Professor")),
+        ('RESEARCHER', _("Senior Researcher")),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('user'))
     image = models.ImageField(upload_to='media/accounts/teacher/', verbose_name=_('image'))
     experience = models.CharField(max_length=255, verbose_name=_('experience'))
@@ -35,6 +44,7 @@ class Teacher(BaseModel):
     about = RichTextUploadingField(verbose_name=_('about teacher'))
     hobbies = models.ManyToManyField(Hobby, verbose_name=_('hobbies'))
     sciences = models.ManyToManyField(Science, verbose_name=_('sciences'))
+    degree_type = models.CharField(max_length=15, choices=DEGREE_CHOICES, default="BACHELOR")
 
     def __str__(self):
         return str(self.user.get_full_name())

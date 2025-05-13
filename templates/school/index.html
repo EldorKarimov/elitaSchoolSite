@@ -60,31 +60,28 @@
             <div class="col-lg-3 col-md-6 col-sm-6 activity">
                 <div class="single-activity">
                     <div class="single-activity-icon">
-                        <i class="fa fa-gamepad"></i>
+                        <i class="fa-solid fa-brain"></i>
                     </div>
-                    <h4>Funny Games</h4>
-                    <p>Fusce pretium, est at aliquam semper, leo ante facilisis risus in feugiat ipsum augue pellent
-                        esque metu.</p>
+                    <h4>{% trans "Rivojlantiruvchi mashg‘ulotlar" %}</h4>
+                    <p>{% trans "Bolalarning akademik (matematika, til) va ijtimoiy ko‘nikmalarini rivojlantirishga qaratilgan dasturlar." %}</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 activity">
                 <div class="single-activity">
                     <div class="single-activity-icon">
-                        <i class="fa fa-fort-awesome"></i>
+                        <i class="fa fa-futbol-o"></i>
                     </div>
-                    <h4>Toys</h4>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's</p>
+                    <h4>{% trans "Faoliyatlar" %}</h4>
+                    <p>{% trans "Sport, san’at va fan yo‘nalishlarida muntazam mashg‘ulotlar orqali bolalarning jismoniy va ijtimoiy ko‘nikmalari shakllanadi." %}</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 activity">
                 <div class="single-activity mrg-res-top-md">
                     <div class="single-activity-icon">
-                        <i class="fa fa-futbol-o"></i>
+                        <i class="fa-solid fa-seedling"></i>
                     </div>
-                    <h4>Activities</h4>
-                    <p>It was popularised in the 1960s with the release of Letraset sheets release containing Lorem
-                        Ipsum passages</p>
+                    <h4>{% trans "Tarbiya va qadriyatlar" %}</h4>
+                    <p>{% trans "Milliy va universal qadriyatlar (hurmat, halollik) bilan bog‘liq tarbiyaviy ishlar." %}</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 activity">
@@ -92,9 +89,8 @@
                     <div class="single-activity-icon">
                         <i class="fa fa-pencil"></i>
                     </div>
-                    <h4>Education</h4>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        looking at layout</p>
+                    <h4>{% trans "Ta'lim" %}</h4>
+                    <p>{% trans "Zamonaviy metodika asosida, tajribali pedagoglar tomonidan olib boriladigan sifatli ta’lim — har bir bolaning individual qobiliyatini ochishga xizmat qiladi." %}</p>
                 </div>
             </div>
         </div>
@@ -106,8 +102,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>How to <span>Enroll Your Child</span> to a <span>Class</span>?</h2>
-                <a href="#">Join Us</a>
+                <h2>{% trans "Bizga qo‘shiling – <span>sifatli ta’lim</span> sari birinchi qadam!" %}</h2>
+                <a href="#">{% trans "Bizga qo'shiling" %}</a>
             </div>
         </div>
     </div>
@@ -121,7 +117,7 @@
                 <div class="section-title-wrapper">
                     <div class="section-title">
                         <h3>{% trans "Bizning sinflar" %}</h3>
-                        <p>{% trans "Bizning maktabgacha ta'lim dasturida oltita maxsus sinf mavjud" %}</p>
+                        <p>{% trans "Har bir sinf yosh guruhiga moslashtirilgan va zamonaviy ta’lim standartlari asosida tashkil etilgan" %}</p>
                     </div>
                 </div>
             </div>
@@ -130,7 +126,7 @@
             {% for class in classes %}
             <div class="single-class">
                 <div class="single-class-image">
-                    <a href="#">
+                    <a href="{% url 'school:class-details' class.slug %}">
                         <!-- <img src="{% static 'img/class/10.jpg' %}" alt=""> -->
                         <img src="{{ class.get_first_image }}" alt="">
                         <span class="class-date">{{ class.get_formatted_date }} <span>{{ class.get_formatted_year}} </span></span>
@@ -144,7 +140,7 @@
                     <div class="class-schedule">
                         <span>AGE: 5 - 6 years</span>
                         <span>CLASS SIZE: {{ class.size }}</span>
-                        <span class="arrow"><a href="#"><i class="fa fa-angle-right"></i></a></span>
+                        <span class="arrow"><a href="{% url 'school:class-details' class.slug %}"><i class="fa fa-angle-right"></i></a></span>
                     </div>
                 </div>
             </div>
@@ -285,7 +281,7 @@
                         <i class="fa fa-users"></i>
                     </div>
                     <h2><span class="counter">25</span></h2>
-                    <span>Teacher</span>
+                    <span>{% trans "O'qituvchilar" %}</span>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-6">
@@ -294,7 +290,7 @@
                         <i class="fa fa-bank"></i>
                     </div>
                     <h2><span class="counter">45</span></h2>
-                    <span>Campus</span>
+                    <span>{% trans "Xalqaro yutuqlar" %}</span>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-6">
@@ -303,7 +299,7 @@
                         <i class="fa fa-user"></i>
                     </div>
                     <h2><span class="counter">55</span></h2>
-                    <span>Students</span>
+                    <span>{% trans "O'quvchilar" %}</span>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-6">

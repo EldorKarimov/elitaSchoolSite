@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 
 from common.models import Slider, About
@@ -14,3 +14,19 @@ class HomePageView(View):
             'classes':classes
         }
         return render(request, 'school/index.html', context)
+    
+class SchoolClassListView(View):
+    def get(self, request):
+        school_classes = SchoolClass.objects.all()
+        context = {
+            'classes':school_classes
+        }
+        return render(request, 'school/classes.html', context)
+
+class SchoolClassDetailView(View):
+    def get(self, request, slug):
+        school_class = get_object_or_404(SchoolClass, slug = slug)
+        context = {
+            'school_class':school_class
+        }
+        return render(request, 'school/class-details.html', context)
