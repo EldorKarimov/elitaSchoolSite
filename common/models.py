@@ -14,14 +14,14 @@ class BaseModel(models.Model):
         abstract = True
 
 class Slider(BaseModel):
-    image = models.ImageField(upload_to='media/slider', verbose_name=_('image'))
+    image = models.ImageField(upload_to='media/slider', verbose_name=_('Slider rasmi'))
     is_available = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.image.name)
 
 class About(BaseModel):
-    content = RichTextUploadingField(verbose_name=_('content'))
+    content = RichTextUploadingField(verbose_name=_('Mazmuni'))
 
     def __str__(self):
         return f"about-{self.id}"

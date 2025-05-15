@@ -8,153 +8,183 @@ from common.models import BaseModel
 User = get_user_model()
 
 class Science(BaseModel):
-    name = models.CharField(max_length=50, verbose_name=_("name"))
+    name = models.CharField(max_length=50, verbose_name=_("Fan nomi"))
 
     def __str__(self):
         return self.name
     
     class Meta:
-        verbose_name = _('science')
-        verbose_name_plural = _('sciences')
+        verbose_name = _('Fan')
+        verbose_name_plural = _('Fanlar')
     
 class Hobby(BaseModel):
-    name = models.CharField(max_length=50, verbose_name=_("name"))
+    name = models.CharField(max_length=50, verbose_name=_("Qiziqish nomi"))
 
     def __str__(self):
         return self.name
     
     class Meta:
-        verbose_name = _('hobby')
-        verbose_name_plural = _('hobbies')
+        verbose_name = _('Qiziqish')
+        verbose_name_plural = _('Qiziqishlar')
+
+class Position(BaseModel):
+    name = models.CharField(_("lavozim nomi"), max_length=100)
+    priority = models.IntegerField(_("tartib raqami"), default=0)
+    is_leadership = models.BooleanField(_("rahbariyat a'zosi"), default=False)
+    
+    class Meta:
+        verbose_name = _("Lavozim")
+        verbose_name_plural = _("Lavozimlar")
+        ordering = ['priority']
+    
+    def __str__(self):
+        return self.name
     
 class Teacher(BaseModel):
     DEGREE_CHOICES = [
-        ('BACHELOR', _("Bachelor")),
-        ('MASTER', _("Master")),
-        ('PHD', _("PhD")),
-        ('DSC', _("Doctor of Science (DSc)")),  # Doctor of Sciences
+        ('BACHELOR', _("Bakalavr")),
+        ('MASTER', _("Magistr")),
+        ('PHD', _("PhD (Fan doktori)")),
+        ('DSC', _("Fan doktori (DSc)")),  # Doctor of Sciences
         ('PROFESSOR', _("Professor")),
-        ('ASSOCIATE_PROF', _("Associate Professor")),
-        ('RESEARCHER', _("Senior Researcher")),
+        ('ASSOCIATE_PROF', _("Dotsent")),
+        ('RESEARCHER', _("Katta ilmiy xodim")),
     ]
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('user'))
-    image = models.ImageField(upload_to='media/accounts/teacher/', verbose_name=_('image'))
-    experience = models.CharField(max_length=255, verbose_name=_('experience'))
-    phone = models.CharField(max_length=13, verbose_name=_('phone'))
-    about = RichTextUploadingField(verbose_name=_('about teacher'))
-    hobbies = models.ManyToManyField(Hobby, verbose_name=_('hobbies'))
-    sciences = models.ManyToManyField(Science, verbose_name=_('sciences'))
-    degree_type = models.CharField(max_length=15, choices=DEGREE_CHOICES, default="BACHELOR")
+    
+    user = models.OneToOneField(
+        User, 
+        on_delete=models.CASCADE, 
+        verbose_name=_("Foydalanuvchi")
+    )
+    image = models.ImageField(
+        upload_to='media/accounts/teacher/', 
+        verbose_name=_("Rasm")
+    )
+    experience = models.CharField(
+        max_length=255, 
+        verbose_name=_("Tajriba")
+    )
+    phone = models.CharField(
+        max_length=13, 
+        verbose_name=_("Telefon raqami")
+    )
+    about = RichTextUploadingField(
+        verbose_name=_("O'qituvchi haqida")
+    )
+    hobbies = models.ManyToManyField(
+        Hobby, 
+        verbose_name=_("Qiziqishlari")
+    )
+    sciences = models.ManyToManyField(
+        Science, 
+        verbose_name=_("Fanlar")
+    )
+    degree_type = models.CharField(
+        max_length=15, 
+        choices=DEGREE_CHOICES, 
+        default="BACHELOR",
+        verbose_name=_("Ilmiy daraja")
+    )
+    position = models.ForeignKey(
+        Position,
+        on_delete=models.SET_NULL, 
+        null=True,
+        verbose_name=_("Lavozim")
+    )
+
+    class Meta:
+        verbose_name = _("O'qituvchi")
+        verbose_name_plural = _("O'qituvchilar")
 
     def __str__(self):
         return str(self.user.get_full_name())
 
-    class Meta:
-        verbose_name = _('teacher')
-        verbose_name_plural = _('teachers')
-
 class Skill(BaseModel):
-    name = models.CharField(max_length=50, verbose_name=_('name'))
-    percent = models.PositiveIntegerField(verbose_name=_('percent'))
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name=_('teacher'))
+    name = models.CharField(max_length=50, verbose_name=_('Koʻnikma nomi'))
+    percent = models.PositiveIntegerField(verbose_name=_('Foiz'))
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name=_('Oʻqituvchi'))
 
     def __str__(self):
         return self.name
     
     class Meta:
-        verbose_name = _('skill')
-        verbose_name_plural = _('skills')
+        verbose_name = _('Koʻnikma')
+        verbose_name_plural = _('Koʻnikmalar')
 
 class TeacherSchedule(BaseModel):
-    teacher = models.ForeignKey(Teacher, related_name='teacher', on_delete=models.CASCADE, verbose_name=_('teacher'))
-    weekday = models.CharField(max_length=50, verbose_name=_('weekday'))
-    time_from = models.TimeField(verbose_name=_('time from'))
-    time_to = models.TimeField(verbose_name=_('time to'))
+    teacher = models.ForeignKey(Teacher, related_name='teacher', on_delete=models.CASCADE, verbose_name=_('Oʻqituvchi'))
+    weekday = models.CharField(max_length=50, verbose_name=_('Hafta kuni'))
+    time_from = models.TimeField(verbose_name=_('Boshlanish vaqti'))
+    time_to = models.TimeField(verbose_name=_('Tugash vaqti'))
 
     def __str__(self):
         return str(self.teacher.user.get_full_name)
     
     class Meta:
-        verbose_name = _('teacher schedule')
-        verbose_name_plural = _('teacher schedules')
+        verbose_name = _('Oʻqituvchi dars jadvali')
+        verbose_name_plural = _('Oʻqituvchilar dars jadvallari')
  
 
 class SchoolClass(BaseModel):
     class TransportationChoices(models.TextChoices):
-        AVAILABLE = 'AVAILABLE', _('Available')
-        UNAVAILABLE = 'UNAVAILABLE', _('Unavailable')
-    name = models.CharField(max_length=50, verbose_name=_('name'))
-    slug = models.SlugField(max_length=50, unique=True, verbose_name=_('slug'))
-    start_date = models.DateField(verbose_name=_('start date'))
-    size = models.PositiveIntegerField(default=20, verbose_name=_('size'))
-    transportation = models.CharField(max_length=11, choices=TransportationChoices.choices)
-    food = models.CharField(max_length=50, verbose_name=_('food'))
-    description = RichTextUploadingField(verbose_name=_('description'))
+        AVAILABLE = 'AVAILABLE', _('Mavjud')
+        UNAVAILABLE = 'UNAVAILABLE', _('Mavjud emas')
+        
+    name = models.CharField(max_length=50, verbose_name=_('Sinf nomi'))
+    slug = models.SlugField(max_length=50, unique=True, verbose_name=_('Slug'))
+    start_date = models.DateField(verbose_name=_('Boshlanish sanasi'))
+    size = models.PositiveIntegerField(default=20, verbose_name=_('Sinf hajmi'))
+    transportation = models.CharField(max_length=11, choices=TransportationChoices.choices, verbose_name=_('Transport xizmati'))
+    food = models.CharField(max_length=50, verbose_name=_('Ovqatlanish'))
+    description = RichTextUploadingField(verbose_name=_('Tavsif'))
     head_teacher = models.ForeignKey(
         Teacher,
         on_delete=models.SET_NULL,
         null=True,
         related_name='teacher_classes',
-        verbose_name=_('head teacher'),
+        verbose_name=_('Sinf rahbari'),
     )
-    teachers = models.ManyToManyField(Teacher, verbose_name=_('teachers'))
-    lesson_start = models.TimeField(default='08:30', verbose_name=_('lesson start'))
-    lesson_end = models.TimeField(default='16:30', verbose_name=_('lesson end'))
-    num_of_pupils = models.PositiveIntegerField(verbose_name=_('number of pupils'))
+    teachers = models.ManyToManyField(Teacher, verbose_name=_('Oʻqituvchilar'))
+    lesson_start = models.TimeField(default='08:30', verbose_name=_('Dars boshlanishi'))
+    lesson_end = models.TimeField(default='16:30', verbose_name=_('Dars tugashi'))
+    num_of_pupils = models.PositiveIntegerField(verbose_name=_('Oʻquvchilar soni'))
 
     def __str__(self):
         return str(self.name)
     
-    def get_first_image(self):
-        """Helper method to get the first image URL"""
-        image = self.schoolclassimage_set.first()
-        return image.image.url if image else None
-    
-    def get_formatted_date(self):
-        """Method for formatting dates: MM DD"""
-        if self.start_date:
-            return self.start_date.strftime("%b %d")
-        return ""
-    
-    def get_formatted_year(self):
-        """Method for formatting the year: YYYY"""
-        if self.start_date:
-            return self.start_date.strftime("%Y")
-        return ""
-
     class Meta:
-        verbose_name = _('class')
-        verbose_name_plural = _('classes')
+        verbose_name = _('Sinf')
+        verbose_name_plural = _('Sinflar')
 
 class SchoolClassImage(BaseModel):
-    image = models.ImageField(upload_to='media/class/images', verbose_name=_('image'))
-    school_class = models.ForeignKey(SchoolClass, on_delete=models.CASCADE, verbose_name=_('class'))
+    image = models.ImageField(upload_to='media/class/images', verbose_name=_('Rasm'))
+    school_class = models.ForeignKey(SchoolClass, on_delete=models.CASCADE, verbose_name=_('Sinf'))
 
     def __str__(self):
         return str(self.image.name)
 
     class Meta:
-        verbose_name = _('class image')
-        verbose_name_plural = _('class images')
+        verbose_name = _('Sinf rasmi')
+        verbose_name_plural = _('Sinf rasmlari')
 
 class GalleryCategory(BaseModel):
-    name = models.CharField(max_length=50, verbose_name=_('name'))
+    name = models.CharField(max_length=50, verbose_name=_('Kategoriya nomi'))
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = _('Gallery category')
-        verbose_name_plural = _('Gallery categories')
+        verbose_name = _('Galereya kategoriyasi')
+        verbose_name_plural = _('Galereya kategoriyalari')
 
 class Gallery(BaseModel):
-    title = models.CharField(max_length=128, verbose_name=_('title'))
-    image = models.ImageField(upload_to='media/gallery', verbose_name=_('image'))
-    gallery_category = models.ForeignKey(GalleryCategory, on_delete=models.CASCADE, verbose_name=_('gallery category'))
+    title = models.CharField(max_length=128, verbose_name=_('Sarlavha'))
+    image = models.ImageField(upload_to='media/gallery', verbose_name=_('Rasm'))
+    gallery_category = models.ForeignKey(GalleryCategory, on_delete=models.CASCADE, verbose_name=_('Galereya kategoriyasi'))
 
     def __str__(self):
         return self.title
     
     class Meta:
-        verbose_name = _('Gallery')
-        verbose_name_plural = _('Galleries')
+        verbose_name = _('Galereya')
+        verbose_name_plural = _('Galereyalar')

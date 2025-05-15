@@ -8,45 +8,45 @@ from common.models import BaseModel
 User = get_user_model()
 
 class NewsCategory(BaseModel):
-    name = models.CharField(max_length=50, verbose_name=_('name'))
-    slug = models.SlugField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, verbose_name=_('Kategoriya nomi'))
+    slug = models.SlugField(max_length=50, unique=True, verbose_name=_('Slug'))
 
     def __str__(self):
         return self.name
     
     class Meta:
-        verbose_name = _('category')
-        verbose_name_plural = _('categories')
+        verbose_name = _('Yangiliklar kategoriyasi')
+        verbose_name_plural = _('Yangiliklar kategoriyalari')
 
 class Tag(BaseModel):
-    name = models.CharField(max_length=50, verbose_name=_('name'))
-    slug = models.SlugField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, verbose_name=_('Teg nomi'))
+    slug = models.SlugField(max_length=50, unique=True, verbose_name=_('Slug'))
 
     def __str__(self):
         return self.name
     
     class Meta:
-        verbose_name = _('tag')
-        verbose_name_plural = _('tags')
+        verbose_name = _('Teg')
+        verbose_name_plural = _('Teglar')
     
 class News(BaseModel):
-    title = models.CharField(max_length=255, verbose_name=_('title'))
-    slug = models.SlugField(max_length=255, unique=True)
-    content = RichTextUploadingField(verbose_name=_('content'))
-    image = models.ImageField(upload_to='media/news/images', verbose_name=_('image'))
-    is_published = models.BooleanField(default=False, verbose_name=_('published'))
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=_('user'))
+    title = models.CharField(max_length=255, verbose_name=_('Sarlavha'))
+    slug = models.SlugField(max_length=255, unique=True, verbose_name=_('Slug'))
+    content = RichTextUploadingField(verbose_name=_('Mazmuni'))
+    image = models.ImageField(upload_to='media/news/images', verbose_name=_('Rasm'))
+    is_published = models.BooleanField(default=False, verbose_name=_('Nashr etilgan'))
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=_('Foydalanuvchi'))
     category = models.ForeignKey(
         NewsCategory,
         on_delete=models.CASCADE,
         related_name='news',
-        verbose_name=_('category')
+        verbose_name=_('Kategoriya')
     )
-    tags = models.ManyToManyField(Tag, verbose_name=_('tag'))
+    tags = models.ManyToManyField(Tag, verbose_name=_('Teglar'))
 
     def __str__(self):
         return self.title
     
     class Meta:
-        verbose_name = _('new')
-        verbose_name_plural = _('news')
+        verbose_name = _('Yangilik')
+        verbose_name_plural = _('Yangiliklar')

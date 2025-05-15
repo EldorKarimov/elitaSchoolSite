@@ -3,15 +3,18 @@ from django.views import View
 
 from common.models import Slider, About
 from news.models import News, NewsCategory, Tag
-from .models import SchoolClass
+from .models import SchoolClass, Teacher
 
 class HomePageView(View):
     def get(self, request):
         sliders = Slider.objects.filter(is_available = True)
         classes = SchoolClass.objects.all()[:5]
+        teachers = Teacher.objects.all().order_by('-degree_type')
         context = {
             'sliders':sliders,
-            'classes':classes
+            'classes':classes,
+            'teachers':teachers,
+            'featured_teacher':teachers.first()
         }
         return render(request, 'school/index.html', context)
     

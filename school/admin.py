@@ -26,6 +26,14 @@ class ScheduleInline(admin.TabularInline):
     extra = 0
     fields = ('weekday', 'time_from', 'time_to')
 
+@admin.register(Position)
+class PositionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'priority', 'is_leadership', 'created', 'updated')
+    search_fields = ('name', )
+    list_filter = ('priority', 'is_leadership')
+    ordering = ('priority', )
+    readonly_fields = ('created', 'updated')
+
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ('get_full_name', 'experience', 'phone')
@@ -40,7 +48,7 @@ class TeacherAdmin(admin.ModelAdmin):
             'fields': ('user', 'image', 'image_preview', 'phone')
         }),
         (_('Professional Information'), {
-            'fields': ('experience', 'about')
+            'fields': ('position', 'experience', 'about')
         }),
         (_('Interests'), {
             'fields': ('sciences', 'hobbies')
