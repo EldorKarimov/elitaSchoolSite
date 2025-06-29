@@ -9,12 +9,13 @@ class HomePageView(View):
     def get(self, request):
         sliders = Slider.objects.filter(is_available = True)
         classes = SchoolClass.objects.all()[:5]
-        teachers = Teacher.objects.all().order_by('-degree_type')
+        teachers = Teacher.objects.filter(position__priority__gte = 2).order_by('-degree_type')
+        director = Teacher.objects.filter(position__priority = 1).first()
         context = {
             'sliders':sliders,
             'classes':classes,
             'teachers':teachers,
-            'featured_teacher':teachers.first()
+            'director':director,
         }
         return render(request, 'school/index.html', context)
     
@@ -29,6 +30,7 @@ class SchoolClassListView(View):
 class SchoolClassDetailView(View):
     def get(self, request, slug):
         school_class = get_object_or_404(SchoolClass, slug = slug)
+        other_classes = SchoolClass.objects.exclude()
         context = {
             'school_class':school_class
         }

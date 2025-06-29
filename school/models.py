@@ -98,6 +98,7 @@ class Teacher(BaseModel):
 
     def __str__(self):
         return str(self.user.get_full_name())
+    
 
 class Skill(BaseModel):
     name = models.CharField(max_length=50, verbose_name=_('Koʻnikma nomi'))
@@ -148,6 +149,17 @@ class SchoolClass(BaseModel):
     lesson_start = models.TimeField(default='08:30', verbose_name=_('Dars boshlanishi'))
     lesson_end = models.TimeField(default='16:30', verbose_name=_('Dars tugashi'))
     num_of_pupils = models.PositiveIntegerField(verbose_name=_('Oʻquvchilar soni'))
+
+    def get_first_image(self):
+        """Helper method to get the first image URL"""
+        image = self.schoolclassimage_set.first()
+        return image.image.url if image else None
+    
+    def get_formatted_date(self):
+        """Method for formatting dates: MM DD"""
+        if self.start_date:
+            return self.start_date.strftime("%b %d")
+        return ""
 
     def __str__(self):
         return str(self.name)
