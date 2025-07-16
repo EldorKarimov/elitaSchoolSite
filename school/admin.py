@@ -85,7 +85,7 @@ class SchoolClassAdmin(admin.ModelAdmin):
             'fields': ('name', 'slug', 'description')
         }),
         (_('Class Details'), {
-            'fields': ('start_date', 'size', 'transportation', 'food')
+            'fields': ('start_date', 'size', 'transportation', 'food', 'image_card', 'pupil_birth_year')
         }),
         (_('Schedule'), {
             'fields': ('lesson_start', 'lesson_end')

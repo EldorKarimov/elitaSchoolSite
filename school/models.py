@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils import timezone
 
 from common.models import BaseModel
 
@@ -138,6 +140,12 @@ class SchoolClass(BaseModel):
     transportation = models.CharField(max_length=11, choices=TransportationChoices.choices, verbose_name=_('Transport xizmati'))
     food = models.CharField(max_length=50, verbose_name=_('Ovqatlanish'))
     description = RichTextUploadingField(verbose_name=_('Tavsif'))
+    image_card = models.ImageField(upload_to='class/images/card', null=True, verbose_name=_("Sinf rasmi kard"))
+    pupil_birth_year = models.PositiveIntegerField(
+        default=2015,
+        validators=[MinValueValidator(2000), MaxValueValidator(2025)],
+        verbose_name=_("Yosh toifasi (tug'ilgan yil)")
+    )
     head_teacher = models.ForeignKey(
         Teacher,
         on_delete=models.SET_NULL,
@@ -160,6 +168,17 @@ class SchoolClass(BaseModel):
         if self.start_date:
             return self.start_date.strftime("%b %d")
         return ""
+    
+    def get_formatted_year(self):
+        """Method for formatting dates: YY"""
+        if self.start_date:
+            return self.start_date.strftime("%Y")
+        return ""
+    
+    @property
+    def get_pupil_age(self):
+        age = timezone.now().year - self.pupil_birth_year
+        return f"{age}-{age + 1}"
 
     def __str__(self):
         return str(self.name)
@@ -169,7 +188,7 @@ class SchoolClass(BaseModel):
         verbose_name_plural = _('Sinflar')
 
 class SchoolClassImage(BaseModel):
-    image = models.ImageField(upload_to='media/class/images', verbose_name=_('Rasm'))
+    image = models.ImageField(upload_to='class/images', verbose_name=_('Rasm'))
     school_class = models.ForeignKey(SchoolClass, on_delete=models.CASCADE, verbose_name=_('Sinf'))
 
     def __str__(self):

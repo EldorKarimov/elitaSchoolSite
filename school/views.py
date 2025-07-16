@@ -30,8 +30,9 @@ class SchoolClassListView(View):
 class SchoolClassDetailView(View):
     def get(self, request, slug):
         school_class = get_object_or_404(SchoolClass, slug = slug)
-        other_classes = SchoolClass.objects.exclude()
+        other_classes = SchoolClass.objects.exclude(slug = slug)
         context = {
-            'school_class':school_class
+            'school_class':school_class,
+            'other_classes':other_classes
         }
         return render(request, 'school/class-details.html', context)

@@ -250,7 +250,7 @@
                     <div class="single-widget-container">
                         <ul class="class-infos">
                             <li><i class="fa fa-calendar"></i>{% trans "Boshlangan sana" %}: {{ school_class.start_date }}</li>
-                            <li><i class="fa fa-birthday-cake"></i>{% trans "Yosh chegarasi" %}: 2-5 Years</li>
+                            <li><i class="fa fa-birthday-cake"></i>{% trans "Yosh chegarasi" %}: {{ school_class.get_pupil_age }}</li>
                             <li><i class="fa fa-bank"></i>{% trans "Sinf hajmi" %}: {{ school_class.size }}</li>
                             <li><i class="fa fa-clock-o"></i>{% trans "Dars davomiyligi" %}: {{ school_class.lesson_start}} - {{school_class.lesson_end }} </li>
                             <li><i class="fa fa-bus"></i>{% trans "Transport" %}: {{ school_class.get_transportation_display }}</li>
@@ -307,86 +307,27 @@
             </div>
         </div>
         <div class="class-carousel carousel-style-one owl-carousel">
+            {% for other_class in other_classes %} 
             <div class="single-class">
                 <div class="single-class-image">
-                    <a href="#">
-                        <img src="img/class/10.jpg" alt="">
-                        <span class="class-date">Apr 21 <span>2016</span></span>
+                    <a href="{% url 'school:class-details' other_class.slug %}">
+                        <img src="{{ other_class.image_card.url }}" alt="class image">
+                        <span class="class-date">{{ other_class.get_formatted_date }} <span>{{ other_class.get_formatted_year }}</span></span>
                     </a>
                 </div>
                 <div class="single-class-text">
                     <div class="class-des">
-                        <h4><a href="#">Letter Match Class</a></h4>
-                        <p>The concept of the activity room is about 'Learning', through play, in a totally different
-                            environment. The perfect class for your child with the best.</p>
+                        <h4><a href="{% url 'school:class-details' other_class.slug %}">{{ other_class.name }}</a></h4>
+                        <p>{{ other_class.description|slice:":100"|safe}}...</p>
                     </div>
                     <div class="class-schedule">
-                        <span>AGE: 5 - 6 years</span>
-                        <span>CLASS SIZE: 25</span>
-                        <span class="arrow"><a href="#"><i class="fa fa-angle-right"></i></a></span>
+                        <span>{% trans "Yosh chegarasi" %}: {{ other_class.get_pupil_age }} </span>
+                        <span>{% trans "Sinf hajmi" %}: {{ other_class.size }}</span>
+                        <span class="arrow"><a href="{% url 'school:class-details' other_class.slug %}"><i class="fa fa-angle-right"></i></a></span>
                     </div>
                 </div>
             </div>
-            <div class="single-class">
-                <div class="single-class-image">
-                    <a href="#">
-                        <img src="img/class/11.jpg" alt="">
-                        <span class="class-date">OCT 10 <span>2016</span></span>
-                    </a>
-                </div>
-                <div class="single-class-text">
-                    <div class="class-des">
-                        <h4><a href="#">Cool Math Class</a></h4>
-                        <p>The students learn different skills like rhythm, flexibility, and coordination. Lorem ipsum
-                            dolor sit amet. The perfect class for your child with the best.</p>
-                    </div>
-                    <div class="class-schedule">
-                        <span>AGE: 4 - 5 years</span>
-                        <span>CLASS SIZE: 38</span>
-                        <span class="arrow"><a href="#"><i class="fa fa-angle-right"></i></a></span>
-                    </div>
-                </div>
-            </div>
-            <div class="single-class">
-                <div class="single-class-image">
-                    <a href="#">
-                        <img src="img/class/12.jpg" alt="">
-                        <span class="class-date">FEB 19 <span>2016</span></span>
-                    </a>
-                </div>
-                <div class="single-class-text">
-                    <div class="class-des">
-                        <h4><a href="#">Alphabet Matching Class</a></h4>
-                        <p>The concept of the activity room is about 'Learning', through play, in a totally different
-                            environment. The perfect class for your child with the best.</p>
-                    </div>
-                    <div class="class-schedule">
-                        <span>AGE: 3 - 4 years</span>
-                        <span>CLASS SIZE: 50</span>
-                        <span class="arrow"><a href="#"><i class="fa fa-angle-right"></i></a></span>
-                    </div>
-                </div>
-            </div>
-            <div class="single-class">
-                <div class="single-class-image">
-                    <a href="#">
-                        <img src="img/class/10.jpg" alt="">
-                        <span class="class-date">Apr 21 <span>2016</span></span>
-                    </a>
-                </div>
-                <div class="single-class-text">
-                    <div class="class-des">
-                        <h4><a href="#">Letter Match Class</a></h4>
-                        <p>The students learn different skills like rhythm, flexibility, and coordination. Lorem ipsum
-                            dolor sit amet. The perfect class for your child with the best.</p>
-                    </div>
-                    <div class="class-schedule">
-                        <span>AGE: 5 - 6 years</span>
-                        <span>CLASS SIZE: 25</span>
-                        <span class="arrow"><a href="#"><i class="fa fa-angle-right"></i></a></span>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

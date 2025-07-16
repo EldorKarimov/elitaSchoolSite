@@ -110,7 +110,7 @@
 </div>
 <!--End of Advertise Area-->
 <!--Class Area Start-->
-<div class="class-area section-padding">
+<div class="class-area section-padding" id="classes">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -128,24 +128,25 @@
                 <div class="single-class-image">
                     <a href="{% url 'school:class-details' class.slug %}">
                         <!-- <img src="{% static 'img/class/10.jpg' %}" alt=""> -->
-                        <img src="{{ class.get_first_image }}" alt="">
+                        <img src="{{ class.image_card.url }}" alt="">
                         <span class="class-date">{{ class.get_formatted_date }} <span>{{ class.get_formatted_year}} </span></span>
                     </a>
                 </div>
                 <div class="single-class-text">
                     <div class="class-des">
-                        <h4><a href="#">{{ class.name }}</a></h4>
+                        <h4><a href="{% url 'school:class-details' class.slug %}">{{ class.name }}</a></h4>
                         <p>{{ class.description|safe|slice:":100" }}...</p>
                     </div>
                     <div class="class-schedule">
-                        <span>AGE: 5 - 6 years</span>
-                        <span>CLASS SIZE: {{ class.size }}</span>
+                        <span>{% trans "Yosh" %}: {{class.get_pupil_age }}</span>
+                        <span>{% trans "Sinf hajmi" %}: {{ class.size }}</span>
                         <span class="arrow"><a href="{% url 'school:class-details' class.slug %}"><i class="fa fa-angle-right"></i></a></span>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            {% endfor %}  
         </div>
+        <a href="#" class="btn btn-outline-primary mt-3 alignright"><i class="fa-solid fa-arrow-right"></i> Barchasi</a>
     </div>
 </div>
 <!--End of Class Area-->
