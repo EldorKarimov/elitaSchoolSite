@@ -146,7 +146,7 @@
             </div>
             {% endfor %}  
         </div>
-        <a href="#" class="btn btn-outline-primary mt-3 alignright"><i class="fa-solid fa-arrow-right"></i> Barchasi</a>
+        <a href="#" class="button-default mt-3 alignright"><i class="fa-solid fa-arrow-right"></i> Barchasi</a>
     </div>
 </div>
 <!--End of Class Area-->
@@ -188,8 +188,8 @@
             <div class="col-md-12">
                 <div class="section-title-wrapper">
                     <div class="section-title">
-                        <h3>Our Services</h3>
-                        <p>Our best services for your kids</p>
+                        <h3>Bizning Xizmatlar</h3>
+                        <p>Farzandingiz uchun eng yaxshi xizmatlar</p>
                     </div>
                 </div>
             </div>
@@ -199,9 +199,8 @@
                 <div class="single-service-item-wrapper">
                     <div class="single-service-item">
                         <div class="single-service-text">
-                            <h4>Meals Provided</h4>
-                            <p>Lorem ipsum dolor sit amet cotetur adipisicing elit, sed do mod tempor incididunt ut
-                                labore etdolore.</p>
+                            <h4>To'g'ri Ovqatlanish</h4>
+                            <p>Bolalaringiz uchun toza va sifatli mahsulotlardan tayyorlangan muvozanatli ovqatlar taqdim etamiz.</p>
                         </div>
                         <div class="single-service-icon">
                             <i class="fa fa-cutlery"></i>
@@ -209,9 +208,8 @@
                     </div>
                     <div class="single-service-item">
                         <div class="single-service-text">
-                            <h4>Language Lessons</h4>
-                            <p>Quidem laudantium itaque reiciendis inventore. Nobis dolorem, odit ipsam ratione minus
-                                quisquam iste.</p>
+                            <h4>Chet Tillari</h4>
+                            <p>Ingliz, rus va boshqa tillarni mutaxassis o'qituvchilar tomonidan o'rganish imkoniyati.</p>
                         </div>
                         <div class="single-service-icon">
                             <i class="fa fa-language"></i>
@@ -219,9 +217,8 @@
                     </div>
                     <div class="single-service-item">
                         <div class="single-service-text">
-                            <h4>Transportation</h4>
-                            <p>Amet voluptate, aperiam praesentium voluptas eveniet dignissimos nisi commodi, illum fuga
-                                sapiente?</p>
+                            <h4>Transport Xizmati</h4>
+                            <p>Xavfsiz va qulay transport xizmati bilan uyigacha xizmat ko'rsatamiz.</p>
                         </div>
                         <div class="single-service-icon">
                             <i class="fa fa-bus"></i>
@@ -231,7 +228,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-12">
                 <div class="service-image">
-                    <img src="img/banner/2.jpg" alt="">
+                    <img src="{% static 'img/banner/service-child.png' %}" alt="Maktab xizmatlari">
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-12">
@@ -241,9 +238,8 @@
                             <i class="fa fa-calendar-check-o"></i>
                         </div>
                         <div class="single-service-text">
-                            <h4>Full Day Session</h4>
-                            <p>Quibusdam harum est praesentium illo ad expedita nihil optio repellat, fugiat obcaecati
-                                is sunt.</p>
+                            <h4>Kunduzgi Dastur</h4>
+                            <p>08:00 dan 18:00 gacha bo'lgan to'liq kunlik ta'lim va qo'llab-quvvatlash dasturi.</p>
                         </div>
                     </div>
                     <div class="single-service-item">
@@ -251,9 +247,8 @@
                             <i class="fa fa-bookmark"></i>
                         </div>
                         <div class="single-service-text">
-                            <h4>Special Education</h4>
-                            <p>voluptatem, cupiditate eveniet dolores inventore delectus vel eius molestias tho minus,
-                                corporis.</p>
+                            <h4>Individual Dastur</h4>
+                            <p>Har bir bolaning qobiliyatiga moslashtirilgan maxsus ta'lim dasturlari.</p>
                         </div>
                     </div>
                     <div class="single-service-item">
@@ -261,9 +256,8 @@
                             <i class="fa fa-graduation-cap"></i>
                         </div>
                         <div class="single-service-text">
-                            <h4>Special Education</h4>
-                            <p>Et, itaque adipisci blanditiis eaque inventore tempore cum commodi, dicta quisquam
-                                similique magnam</p>
+                            <h4>Kasb-hunar Ta'limi</h4>
+                            <p>Bolalarni kelajakdagi kasblarga tayyorlovchi amaliy mashg'ulotlar va kurslar.</p>
                         </div>
                     </div>
                 </div>
@@ -348,7 +342,7 @@
                         {% endif %}
                         <div class="sin-testiImage">
                             <div class="teacher-image-carousel">
-                                <img src="{{ teacher.image.url }}" alt="teacher" />
+                                <img src="{{ teacher.image_small.url }}" alt="teacher" />
                             </div>
                         </div>
                         {% endfor %}
@@ -418,14 +412,14 @@
 </div>
 <!--End of Teachers Area-->
 <!--Gallery Area Start-->
-<div class="gallery-area section-padding-bottom">
+<div class="gallery-area section-padding-bottom" id="gallery">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="section-title-wrapper">
                     <div class="section-title">
-                        <h3>Our Gallery</h3>
-                        <p>Discove Our Kindergarten Photo Gallery</p>
+                        <h3>{% trans "Bizning fotosuratlar" %}</h3>
+                        <p>{% trans "Elita akademik maktabi hayotidan lavhalar" %}</p>
                     </div>
                 </div>
             </div>
@@ -434,101 +428,44 @@
             <div class="col-md-12">
                 <div class="filter-menu">
                     <ul>
-                        <li class="filter" data-filter="all">All</li>
-                        <li class="filter" data-filter=".drawing">Drawing</li>
-                        <li class="filter" data-filter=".excursions">Excursions</li>
-                        <li class="filter" data-filter=".courses">Courses</li>
-                        <li class="filter" data-filter=".play">Play time</li>
-                    </ul>
+                        <li class="filter active" data-id="all">{% trans "Barchasi" %}</li>
+                        {% for gallery_cat in gallery_categories %}
+                          <li class="filter" data-id="{{ gallery_cat.id }}">{{ gallery_cat.name }}</li>
+                        {% endfor %}
+                      </ul>
+                                         
                 </div>
             </div>
         </div>
         <div class="gallery-row">
-            <div class="filter-items row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items drawing overlay-hover">
+            <div id="gallery-container" class="filter-items row">
+                {% for gallery in galleries %}
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items overlay-hover">
                     <div class="overlay-effect">
-                        <a href="#"><img src="img/gallery/1.jpg" alt=""></a>
+                        <a href="#"><img src="{{ gallery.image.url }}" alt=""></a>
                         <div class="gallery-hover-effect">
-                            <a class="gallery-icon venobox" href="img/gallery/1.jpg"><i class="fa fa-image"></i></a>
-                            <span class="gallery-text">Drawings</span>
+                            <a class="gallery-icon venobox" href="{{ gallery.image.url }}"><i class="fa fa-image"></i></a>
+                            <span class="gallery-text">{{ gallery.gallery_category.name }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items play courses overlay-hover">
-                    <div class="overlay-effect">
-                        <a href="#"><img src="img/gallery/2.jpg" alt=""></a>
-                        <div class="gallery-hover-effect">
-                            <a class="gallery-icon venobox" href="img/gallery/2.jpg"><i class="fa fa-image"></i></a>
-                            <span class="gallery-text">Activities, Photos</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items play overlay-hover">
-                    <div class="overlay-effect">
-                        <a href="#"><img src="img/gallery/3.jpg" alt=""></a>
-                        <div class="gallery-hover-effect">
-                            <a class="gallery-icon venobox" href="img/gallery/3.jpg"><i class="fa fa-image"></i></a>
-                            <span class="gallery-text">Play Time</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items play excursions overlay-hover">
-                    <div class="overlay-effect">
-                        <a href="#"><img src="img/gallery/4.jpg" alt=""></a>
-                        <div class="gallery-hover-effect">
-                            <a class="gallery-icon venobox" href="img/gallery/4.jpg"><i class="fa fa-image"></i></a>
-                            <span class="gallery-text">Excursions, Play</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items courses excursions overlay-hover">
-                    <div class="overlay-effect">
-                        <a href="#"><img src="img/gallery/5.jpg" alt=""></a>
-                        <div class="gallery-hover-effect">
-                            <a class="gallery-icon venobox" href="img/gallery/5.jpg"><i class="fa fa-image"></i></a>
-                            <span class="gallery-text">Courses, Exursions</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items drawing overlay-hover">
-                    <div class="overlay-effect">
-                        <a href="#"><img src="img/gallery/12.jpg" alt=""></a>
-                        <div class="gallery-hover-effect">
-                            <a class="gallery-icon venobox" href="img/gallery/6.jpg"><i class="fa fa-image"></i></a>
-                            <span class="gallery-text">Drawing</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items courses excursions overlay-hover">
-                    <div class="overlay-effect">
-                        <a href="#"><img src="img/gallery/6.jpg" alt=""></a>
-                        <div class="gallery-hover-effect">
-                            <a class="gallery-icon venobox" href="img/gallery/7.jpg"><i class="fa fa-image"></i></a>
-                            <span class="gallery-text">Excursions, Courses</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items drawing excursions overlay-hover">
-                    <div class="overlay-effect">
-                        <a href="#"><img src="img/gallery/10.jpg" alt=""></a>
-                        <div class="gallery-hover-effect">
-                            <a class="gallery-icon venobox" href="img/gallery/8.jpg"><i class="fa fa-image"></i></a>
-                            <span class="gallery-text">Drawing, Exursions</span>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="view-gallery text-center">
-                    <h4>See Our Kindergarten <span>Photo Gallery!</span></h4>
-                    <a href="#" class="button-default">View Now</a>
+                    <h4>{% trans "Maktabimiz hayotidan <span>fotolavhalar</span>" %}</h4>
+                    <a href="#" class="button-default">{% trans "Barchasini ko'rish" %}</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+    
+
 <!--End of Gallery Area-->
 <!--Blog Area Start-->
 <div class="blog-area section-padding section-gray">
@@ -659,4 +596,55 @@
     </div>
 </div>
 <!--End of Google Map Area-->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll('.filter');
+        const galleryContainer = document.getElementById('gallery-container');
+    
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                buttons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+    
+                const categoryId = this.dataset.id;  // shu yerda id olinadi
+                console.log('So‘rov categoryId:', categoryId);
+    
+                fetch(`/ajax/gallery/?category_id=${categoryId}`)
+                    .then(resp => resp.json())
+                    .then(data => {
+                        console.log('AJAX natija:', data);
+                        galleryContainer.innerHTML = '';
+    
+                        if (!data.images.length) {
+                            galleryContainer.innerHTML = '<p>Rasmlar topilmadi</p>';
+                            return;
+                        }
+    
+                        data.images.forEach(item => {
+                            const block = `
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items ${item.category_class} overlay-hover">
+                                    <div class="overlay-effect">
+                                        <a href="#"><img src="${item.image_url}" alt=""></a>
+                                        <div class="gallery-hover-effect">
+                                            <a class="gallery-icon venobox" href="${item.image_url}"><i class="fa fa-image"></i></a>
+                                            <span class="gallery-text">${item.title}</span>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            galleryContainer.innerHTML += block;
+                        });
+
+    
+                        if (typeof $.fn.venobox === 'function') {
+                            $('.venobox').venobox();
+                        }
+                    })
+                    .catch(err => {
+                        console.error('AJAX xatolik:', err);
+                    });
+            });
+        });
+    });
+    </script>
 {% endblock %}

@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 from common.models import BaseModel
 
@@ -62,6 +64,23 @@ class Teacher(BaseModel):
         upload_to='media/accounts/teacher/', 
         verbose_name=_("Rasm")
     )
+
+    # 90x90 PNG small image
+    image_small = ImageSpecField(
+        source='image',
+        processors=[ResizeToFill(90, 90)],
+        format='PNG',
+        options={'quality': 100}
+    )
+
+    # 102x102 PNG medium image
+    image_medium = ImageSpecField(
+        source='image',
+        processors=[ResizeToFill(102, 102)],
+        format='PNG',
+        options={'quality': 100}
+    )
+
     experience = models.CharField(
         max_length=255, 
         verbose_name=_("Tajriba")
@@ -210,7 +229,7 @@ class GalleryCategory(BaseModel):
 
 class Gallery(BaseModel):
     title = models.CharField(max_length=128, verbose_name=_('Sarlavha'))
-    image = models.ImageField(upload_to='media/gallery', verbose_name=_('Rasm'))
+    image = models.ImageField(upload_to='gallery/', verbose_name=_('Rasm'))
     gallery_category = models.ForeignKey(GalleryCategory, on_delete=models.CASCADE, verbose_name=_('Galereya kategoriyasi'))
 
     def __str__(self):
