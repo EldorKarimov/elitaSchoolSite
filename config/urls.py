@@ -11,6 +11,7 @@ urlpatterns = i18n_patterns(
     # CKEditor uploader url
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('school.urls')),
+    path('news/', include('news.urls')),
 
 
 

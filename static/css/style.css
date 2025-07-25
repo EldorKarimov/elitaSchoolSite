@@ -1414,6 +1414,22 @@ span.gallery-text {
     margin: 0 auto;
     width: 100%;
 }
+
+.google-map-area {
+    margin: 40px 0;
+    position: relative;
+}
+
+.map-area {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#googleMap iframe {
+    border: none;
+    display: block;
+}
 /*----------------------------------------*/
 /*  15. Footer Area
 /*----------------------------------------*/

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %} {{ new.title }} {% endblock %}
+
+{% block content %}
+<div class="breadcrumb-banner-area blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-text">
+                    <h1 class="text-center">{% trans "Yangilik" %}</h1>
+                    <div class="breadcrumb-bar">
+                        <ul class="breadcrumb">
+                            <li><a href="{% url 'school:home' %}">{% trans "Bosh sahifa" %}</a></li>
+                            <li>{% trans "Yangilik" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Breadcrumb Banner Area-->
+<!--Blog Details Area Start-->
+<div class="blog-details-area section-padding blog-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-8">
+                <div class="blog-post-wrapper">
+                    <div class="blog-post-details">
+                        <h1>{{ new.title }}</h1>
+                        <span><i class="fa fa-calendar"></i>{{ new.created|date }}/ By: {{ new.user.get_full_name }}</span>
+                    </div>
+                    <div class="blog-post-details-img">
+                        <img src="{{ new.image.url }}" alt="{{ new.image.name}}">
+                    </div>
+                    <div class="blog-post-details-text">
+                        {{ new.content|safe }}
+                    </div>   
+                    <div class="single-title">
+                        <h3>{% trans "Boshqa yangiliklar" %}</h3>
+                    </div>
+                    <div class="row">
+                        {% for new in other_news %}
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                            <div class="single-blog-item overlay-hover">
+                                <div class="single-blog-image">
+                                    <div class="overlay-effect">
+                                        <a href="{% url 'news:news_detail' new.slug %}">
+                                            <img src="{{ new.image.url }}" alt="{{ new.image.name }}">
+                                            <span class="class-date">{{ new.get_formatted_date }} <span>{{ new.get_formatted_year }}</span></span>
+                                        </a>
+                                    </div>    
+                                </div>
+                                <div class="single-blog-text">
+                                    <h4><a href="{% url 'news:news_detail' new.slug %}">New Friends Everyday at Kiddie</a></h4>
+                                    <div class="blog-date">
+                                        <span><i class="fa fa-calendar"></i>{{ new.created|date }}</span>
+                                    </div>
+                                    <p>{{ new.title }}</p>
+                                    <a href="{% url 'news:news_detail' new.slug %}">{% trans "Batafsil" %}</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div> 
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4">
+                <div class="single-widget-item">
+                    <div class="single-title">
+                        <h3>{% trans "Kategoriyalar" %}</h3>
+                    </div>
+                    <div class="single-widget-container">
+                        <ul class="sidebar-categories">
+                            {% for category in categories %}
+                            <li><a href="#">{{ category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="single-widget-item">
+                    <div class="single-title">
+                        <h3>{% trans "So'ngi yangiliklar" %}</h3>
+                    </div>
+                    <div class="single-widget-container">
+                        {% for recent_new in recent_news %}
+                        <div class="recent-post-item">
+                            <div class="recent-post-image">
+                                <a href="{% url 'news:news_detail' recent_new.slug %}"><img src="{{ recent_new.image_small.url }}" alt="{{ recent_new.image.name }}"></a>
+                            </div>
+                            <div class="recent-post-text">
+                                <h4><a href="{% url 'news:news_detail' recent_new.slug %}">{{ recent_new.title }}</a></h4>
+                                <span><i class="fa fa-calendar"></i>{{ recent_new.created|date}}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- <div class="single-widget-item hidden-sm">
+                    <div class="single-widget-container">
+                        <a href="#">
+                            <img src="img/banner/11.jpg" alt="">
+                            <span>Enroll Your Child</span>
+                        </a>
+                    </div>
+                </div>   -->
+                <div class="single-widget-item">
+                    <div class="single-title">
+                        <h3>Tags</h3>
+                    </div>
+                    <div class="single-widget-container">
+                        <ul class="tag-list">
+                            {% for tag in tags %}                  
+                            <li><a href="#">{{ tag.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

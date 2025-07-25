@@ -61,7 +61,7 @@ class Teacher(BaseModel):
         verbose_name=_("Foydalanuvchi")
     )
     image = models.ImageField(
-        upload_to='media/accounts/teacher/', 
+        upload_to='accounts/teacher/', 
         verbose_name=_("Rasm")
     )
 

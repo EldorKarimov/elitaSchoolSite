@@ -468,95 +468,39 @@
 
 <!--End of Gallery Area-->
 <!--Blog Area Start-->
-<div class="blog-area section-padding section-gray">
+<div class="blog-area section-padding section-gray" id="news">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="section-title-wrapper">
                     <div class="section-title">
-                        <h3>Our Blog</h3>
-                        <p>Latest news &amp; event of our schools</p>
+                        <h3>{% trans "Bizning yangiliklar" %}</h3>
+                        <p>{% trans "Maktabimizdagi so'nggi yangiliklar va tadbirlar" %}</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="blog-carousel carousel-style-one owl-carousel">
+            {% for new in news %}
             <div class="single-blog-item overlay-hover">
                 <div class="single-blog-image">
                     <div class="overlay-effect">
-                        <a href="#">
-                            <img src="img/blog/1.jpg" alt="">
-                            <span class="class-date">Apr 21 <span>2016</span></span>
+                        <a href="{% url 'news:news_detail' new.slug %}">
+                            <img src="{{ new.image_medium.url }}" alt="">
+                            <span class="class-date">{{ new.get_formatted_date }} <span>{{ new.get_formatted_year }}</span></span>
                         </a>
                     </div>
                 </div>
                 <div class="single-blog-text">
-                    <h4><a href="blog-details.html">New Friends Everyday at Kiddie</a></h4>
+                    <h4><a href="{% url 'news:news_detail' new.slug %}">{{ new.title }}</a></h4>
                     <div class="blog-date">
-                        <span><i class="fa fa-calendar"></i>08 Apr, 2016</span>
+                        <span><i class="fa fa-calendar"></i>{{ new.created|date}}</span>
                     </div>
-                    <p>The concept of the activity room is about 'Learning', through play, in a totally different
-                        environment. The perfect class for your child with the best.</p>
-                    <a href="blog-details.html">Read more.</a>
+                    <p>{{ new.content|slice:"100"|safe }}...</p>
+                    <a href="{% url 'news:news_detail' new.slug %}">{% trans "Batafsil" %}</a>
                 </div>
             </div>
-            <div class="single-blog-item overlay-hover">
-                <div class="single-blog-image">
-                    <div class="overlay-effect">
-                        <a href="#">
-                            <img src="img/blog/2.jpg" alt="">
-                            <span class="class-date">Oct 21 <span>2016</span></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="single-blog-text">
-                    <h4><a href="blog-details.html">Swimming Lessons at New Pool</a></h4>
-                    <div class="blog-date">
-                        <span><i class="fa fa-calendar"></i>27 Jan, 2014</span>
-                    </div>
-                    <p>The concept of the activity room is about 'Learning', through play, in a totally different
-                        environment. The perfect class for your child with the best.</p>
-                    <a href="blog-details.html">Read more.</a>
-                </div>
-            </div>
-            <div class="single-blog-item overlay-hover">
-                <div class="single-blog-image">
-                    <div class="overlay-effect">
-                        <a href="#">
-                            <img src="img/blog/3.jpg" alt="">
-                            <span class="class-date">Nov 21 <span>2016</span></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="single-blog-text">
-                    <h4><a href="blog-details.html">Play is Our Brain’s Favorite Way of</a></h4>
-                    <div class="blog-date">
-                        <span><i class="fa fa-calendar"></i>30 Feb, 2015</span>
-                    </div>
-                    <p>The concept of the activity room is about 'Learning', through play, in a totally different
-                        environment. The perfect class for your child with the best.</p>
-                    <a href="blog-details.html">Read more.</a>
-                </div>
-            </div>
-            <div class="single-blog-item overlay-hover">
-                <div class="single-blog-image">
-                    <div class="overlay-effect">
-                        <a href="#">
-                            <img src="img/blog/1.jpg" alt="">
-                            <span class="class-date">Dec 21 <span>2016</span></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="single-blog-text">
-                    <h4><a href="blog-details.html">New Friends Everyday at Kiddie</a></h4>
-                    <div class="blog-date">
-                        <span><i class="fa fa-calendar"></i>08 Apr, 2016</span>
-                    </div>
-                    <p>The concept of the activity room is about 'Learning', through play, in a totally different
-                        environment. The perfect class for your child with the best.</p>
-                    <a href="blog-details.html">Read more.</a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -590,9 +534,18 @@
 <!--End of Newsletter Area-->
 <!--Google Map Area Start -->
 <div class="google-map-area">
-    <!--  Map Section -->
+    <!-- Map Section -->
     <div id="contacts" class="map-area">
-        <div id="googleMap" style="width:100%;height:451px;"></div>
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.8101792181246!2d67.23794177666272!3d39.428416671615636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f4ccfd8d18441f3%3A0x9d35898534fa523c!2sELITA%20AKADEMIK%20MAKTABI!5e0!3m2!1sen!2s!4v1752987044949!5m2!1sen!2s" 
+            width="100%" 
+            height="450" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Elita Akademik Maktabi joylashuvi">
+        </iframe>
     </div>
 </div>
 <!--End of Google Map Area-->
@@ -601,26 +554,26 @@
     document.addEventListener("DOMContentLoaded", function () {
         const buttons = document.querySelectorAll('.filter');
         const galleryContainer = document.getElementById('gallery-container');
-    
+
         buttons.forEach(btn => {
             btn.addEventListener('click', function () {
                 buttons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-    
+
                 const categoryId = this.dataset.id;  // shu yerda id olinadi
                 console.log('So‘rov categoryId:', categoryId);
-    
+
                 fetch(`/ajax/gallery/?category_id=${categoryId}`)
                     .then(resp => resp.json())
                     .then(data => {
                         console.log('AJAX natija:', data);
                         galleryContainer.innerHTML = '';
-    
+
                         if (!data.images.length) {
                             galleryContainer.innerHTML = '<p>Rasmlar topilmadi</p>';
                             return;
                         }
-    
+
                         data.images.forEach(item => {
                             const block = `
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items ${item.category_class} overlay-hover">
@@ -635,7 +588,7 @@
                             galleryContainer.innerHTML += block;
                         });
 
-    
+
                         if (typeof $.fn.venobox === 'function') {
                             $('.venobox').venobox();
                         }
@@ -646,5 +599,5 @@
             });
         });
     });
-    </script>
+</script>
 {% endblock %}

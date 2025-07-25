@@ -15,6 +15,8 @@ class HomePageView(View):
         director = Teacher.objects.filter(position__priority=1).first()
         gallery_categories = GalleryCategory.objects.all()
         galleries = Gallery.objects.all()[:8]
+
+        news = News.objects.filter(is_published = True).order_by('-created')[:5]
         
         context = {
             'sliders': sliders,
@@ -23,6 +25,7 @@ class HomePageView(View):
             'director': director,
             'gallery_categories': gallery_categories,
             'galleries': galleries,
+            'news':news
         }
         return render(request, 'school/index.html', context)
     
