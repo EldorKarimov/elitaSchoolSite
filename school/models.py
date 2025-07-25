@@ -81,6 +81,14 @@ class Teacher(BaseModel):
         options={'quality': 100}
     )
 
+    # 102x102 PNG large image
+    image_large = ImageSpecField(
+        source='image',
+        processors=[ResizeToFill(600, 705)],
+        format='PNG',
+        options={'quality': 100}
+    )
+
     experience = models.CharField(
         max_length=255, 
         verbose_name=_("Tajriba")
@@ -124,7 +132,7 @@ class Teacher(BaseModel):
 class Skill(BaseModel):
     name = models.CharField(max_length=50, verbose_name=_('Koʻnikma nomi'))
     percent = models.PositiveIntegerField(verbose_name=_('Foiz'))
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name=_('Oʻqituvchi'))
+    teacher = models.ForeignKey(Teacher, related_name="teacher_skills", on_delete=models.CASCADE, verbose_name=_('Oʻqituvchi'))
 
     def __str__(self):
         return self.name
@@ -134,7 +142,7 @@ class Skill(BaseModel):
         verbose_name_plural = _('Koʻnikmalar')
 
 class TeacherSchedule(BaseModel):
-    teacher = models.ForeignKey(Teacher, related_name='teacher', on_delete=models.CASCADE, verbose_name=_('Oʻqituvchi'))
+    teacher = models.ForeignKey(Teacher, related_name='teacher_schedules', on_delete=models.CASCADE, verbose_name=_('Oʻqituvchi'))
     weekday = models.CharField(max_length=50, verbose_name=_('Hafta kuni'))
     time_from = models.TimeField(verbose_name=_('Boshlanish vaqti'))
     time_to = models.TimeField(verbose_name=_('Tugash vaqti'))

@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
     path('class-details/<slug:slug>', views.SchoolClassDetailView.as_view(), name='class-details'),
     path('ajax/gallery/', views.GalleryAjaxView.as_view(), name='ajax_gallery'),
+    path('teacher-info/<uuid:teacher_id>', views.TeacherDetailsView.as_view(), name='teacher_info'),
 ]

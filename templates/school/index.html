@@ -374,7 +374,7 @@
                                 <a href="#"><i class="fa fa-twitter"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                             </div>
-                            <a href="#" class="button-default">{% trans "profilini ko'rish" %}</a>
+                            <a href="{% url 'school:teacher_info' director.id %}" class="button-default">{% trans "profilini ko'rish" %}</a>
                         </div>
                         {% endif %}
                         <div class="sin-testiText">
@@ -401,7 +401,7 @@
                                 <a href="#"><i class="fa fa-twitter"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                             </div>
-                            <a href="#" class="button-default">{% trans "profilini ko'rish" %}</a>
+                            <a href="{% url 'school:teacher_info' teacher.id %}" class="button-default">{% trans "profilini ko'rish" %}</a>
                         </div>
                         {% endfor %}
                     </div>

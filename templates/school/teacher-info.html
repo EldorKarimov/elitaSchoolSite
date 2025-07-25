@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} {% trans "O'qituvchi ma'lumotlari" %} {% endblock %}
+
+{% block content %}
+<!--Breadcrumb Banner Area Start-->
+<div class="breadcrumb-banner-area teachers">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-text">
+                    <h1 class="text-center">{% trans "O'qituvchilar" %}</h1>
+                    <div class="breadcrumb-bar">
+                        <ul class="breadcrumb">
+                            <li><a href="{% url 'school:home' %}">{% trans "Bosh sahifa" %}</a></li>
+                            <li>{% trans "O'qituvchi ma'lumotlari" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Breadcrumb Banner Area-->
+<!--Teacher Details Area Start-->
+<div class="teacher-details-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="teacher-details-image">
+                    <img src="{{ teacher.image_large.url }}" alt="teacher image">
+                    <div class="social-links">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="teacher-details-info">
+                    <h4>{{ teacher.user.get_full_name }}</h4>
+                    <span>{{ teacher.position.name }}</span>
+                    <div class="teacher-info-text">
+                        <span><i class="fa fa-phone"></i>{% trans "Telefon" %}:  {{ teacher.phone }}</span>
+                        <span><i class="fa fa-envelope"></i>{% trans "Email" %}: {{ teacher.user.email }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="teacher-about-info">
+                    <div class="single-title">
+                        <h3>{% trans "O'qituvchi haqida" %}</h3>
+                    </div>
+                    <div class="teacher-info-text">
+                        <span><i class="fa fa-graduation-cap"></i>{% trans "Daraja" %}: {{ teacher.get_degree_type_display }}</span>
+                        <span><i class="fa fa-star"></i>{% trans "Tajriba" %}: {{ teacher.experience }}</span>
+                        <span><i class="fa fa-heart"></i>{% trans "Hobbiylari" %}: {% for hobby in teacher.hobbies.all %} {{ hobby.name}}{% if not forloop.last %},{% endif %} {% endfor %} </span>
+                        <span><i class="fa fa-edit"></i>{% trans "Fanlar" %}: {% for science in teacher.sciences.all %} {{ science.name}}{% if not forloop.last %},{% endif %} {% endfor %} </span>
+                    </div>
+                    <p>
+                        {{ teacher.about|safe|default:"Bu o'qituvchi haqida ma'lumot mavjud emas." }}
+                    </p>
+                </div>
+                <div class="schedule-skill-wrapper section-padding-bottom">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="single-title">
+                                <h3>{% trans "Mening jadvalim" %}</h3>
+                            </div>
+                            <div class="schedule-text">
+                                {% for teacher_schedule in teacher.teacher_schedules.all %}
+                                <span>{{ teacher_schedule.weekday }} <span class="schedule-time">{{ teacher_schedule.time_from }}-{{ teacher_schedule.time_to }}</span></span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="single-title">
+                                <h3>{% trans "Mening skillarim" %}</h3>
+                            </div>
+                            <div class="skill-bars orange">
+                                {% for skill in teacher.teacher_skills.all %}
+                                <div class="skill-bar-item">
+                                    <span class="skill-name">{{ skill.name }}</span>
+                                    <div class="progress">
+                                        <div class="progress-bar wow fadeInLeft" 
+                                             role="progressbar" 
+                                             aria-valuenow="{{ skill.percent }}" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="100"
+                                             style="width: {{ skill.percent }}%;"
+                                             data-progress="{{ skill.percent }}%"
+                                             data-wow-duration="1.5s" 
+                                             data-wow-delay="1.2s">
+                                            <span class="progress-percent">{{ skill.percent }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <p class="text-muted">Ko'rsatiladigan mahoratlar mavjud emas</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="single-title">
+                            <h3>My Classes</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="single-class">
+                            <div class="single-class-image">
+                                <a href="#">
+                                    <img src="img/class/10.jpg" alt="">
+                                    <span class="class-date">Apr 21 <span>2016</span></span>
+                                </a>
+                            </div>
+                            <div class="single-class-text">
+                                <div class="class-des">
+                                    <h4><a href="#">Letter Match Class</a></h4>
+                                    <p>The concept of the activity room is about 'Learning', through play, in a totally
+                                        different environment. The perfect class for your child with the best.</p>
+                                </div>
+                                <div class="class-schedule">
+                                    <span>AGE: 5 - 6 years</span>
+                                    <span>CLASS SIZE: 25</span>
+                                    <span class="arrow"><a href="#"><i class="fa fa-angle-right"></i></a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="single-class">
+                            <div class="single-class-image">
+                                <a href="#">
+                                    <img src="img/class/11.jpg" alt="">
+                                    <span class="class-date">OCT 10 <span>2016</span></span>
+                                </a>
+                            </div>
+                            <div class="single-class-text">
+                                <div class="class-des">
+                                    <h4><a href="#">Cool Math Class</a></h4>
+                                    <p>The students learn different skills like rhythm, flexibility, and coordination.
+                                        Lorem ipsum dolor sit amet. The perfect class for your child with the best.</p>
+                                </div>
+                                <div class="class-schedule">
+                                    <span>AGE: 4 - 5 years</span>
+                                    <span>CLASS SIZE: 38</span>
+                                    <span class="arrow"><a href="#"><i class="fa fa-angle-right"></i></a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Teacher Details Area-->
+{% endblock %}

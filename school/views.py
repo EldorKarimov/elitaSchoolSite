@@ -70,3 +70,12 @@ class GalleryAjaxView(View):
             } for p in photos
         ]
         return JsonResponse({'images': data})
+
+
+class TeacherDetailsView(View):
+    def get(self, request, teacher_id):
+        teacher = get_object_or_404(Teacher, id=teacher_id)
+        context = {
+            'teacher': teacher,
+        }
+        return render(request, 'school/teacher-info.html', context)
