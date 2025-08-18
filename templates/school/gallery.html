@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} {% trans "Galereya" %} {% endblock %}
+
+{% block content %}
+<!--Breadcrumb Banner Area Start-->
+<div class="breadcrumb-banner-area gallery">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-text">
+                    <h1 class="text-center">{% trans "Galereya" %}</h1>
+                    <div class="breadcrumb-bar">
+                        <ul class="breadcrumb">
+                            <li><a href="{% url 'school:home' %}">{% trans "Bosh sahifa" %}</a></li>
+                            <li>{% trans "Galereya" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Breadcrumb Banner Area-->
+<!--Gallery Area Start-->
+<div class="gallery-area section-padding gallery-full-width">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filter-menu">
+                    <ul>
+                        <li class="filter active">
+                            <a href="{% url 'school:gallery_list' %}">{% trans "Barchasi" %}</a>
+                        </li>
+                        {% for category in gallery_categories %}
+                        <li class="filter">
+                            <a href="{% url 'school:gallery_list_by_category' category.id %}">{{ category.name }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="filter-items">
+            <div class="row">
+                {% for gallery in galleries %}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-12 mix single-items drawing overlay-hover">
+                    <div class="overlay-effect">
+                        <a href="#"><img src="{{ gallery.image.url }}" alt="{{ gallery.image.name}}"></a>
+                        <div class="gallery-hover-effect">
+                            <a class="gallery-icon venobox" href="{{ gallery.image.url }}"><i class="fa fa-image"></i></a>
+                            <span class="gallery-text">{{ gallery.title }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-12">
+                <div class="button text-center">
+                    <a class="button-default button-yellow" href="#"><i class="fa fa-refresh"></i>Load More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Gallery Area-->
+{% endblock %}

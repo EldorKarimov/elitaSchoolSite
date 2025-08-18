@@ -146,7 +146,7 @@
             </div>
             {% endfor %}  
         </div>
-        <a href="#" class="button-default mt-3 alignright"><i class="fa-solid fa-arrow-right"></i> Barchasi</a>
+        <a href="{% url 'school:school_class_list' %}" class="button-default mt-3 alignright"><i class="fa-solid fa-arrow-right"></i> {% trans "Barchasi" %}</a>
     </div>
 </div>
 <!--End of Class Area-->
@@ -326,7 +326,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="teacher-image">
-                    <img src="{{ director.image.url }}" alt="" style="border-radius: 10px;">
+                    <img src="{{ director.image_large.url }}" alt="" style="border-radius: 10px;">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -336,7 +336,7 @@
                         {% if forloop.first %}
                         <div class="sin-testiImage">
                             <div class="teacher-image-carousel">
-                                <img src="{{ director.image.url }}" alt="teacher" />
+                                <img src="{{ director.image_large.url }}" alt="teacher" />
                             </div>
                         </div>
                         {% endif %}
@@ -424,7 +424,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12">
                 <div class="filter-menu">
                     <ul>
@@ -436,7 +436,7 @@
                                          
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="gallery-row">
             <div id="gallery-container" class="filter-items row">
                 {% for gallery in galleries %}
@@ -457,7 +457,7 @@
             <div class="col-md-12">
                 <div class="view-gallery text-center">
                     <h4>{% trans "Maktabimiz hayotidan <span>fotolavhalar</span>" %}</h4>
-                    <a href="#" class="button-default">{% trans "Barchasini ko'rish" %}</a>
+                    <a href="{% url 'school:gallery_list' %}" class="button-default">{% trans "Barchasini ko'rish" %}</a>
                 </div>
             </div>
         </div>
@@ -501,8 +501,11 @@
                 </div>
             </div>
             {% endfor %}
+            
         </div>
+        
     </div>
+    <a href="{% url 'news:news_list' %}" class = "btn btn-outline-primary">Barchasi</a>
 </div>
 <!--End of Blog Area-->
 <!--Newsletter Area Start-->
@@ -549,55 +552,4 @@
     </div>
 </div>
 <!--End of Google Map Area-->
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const buttons = document.querySelectorAll('.filter');
-        const galleryContainer = document.getElementById('gallery-container');
-
-        buttons.forEach(btn => {
-            btn.addEventListener('click', function () {
-                buttons.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-
-                const categoryId = this.dataset.id;  // shu yerda id olinadi
-                console.log('So‘rov categoryId:', categoryId);
-
-                fetch(`/ajax/gallery/?category_id=${categoryId}`)
-                    .then(resp => resp.json())
-                    .then(data => {
-                        console.log('AJAX natija:', data);
-                        galleryContainer.innerHTML = '';
-
-                        if (!data.images.length) {
-                            galleryContainer.innerHTML = '<p>Rasmlar topilmadi</p>';
-                            return;
-                        }
-
-                        data.images.forEach(item => {
-                            const block = `
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-18 mix single-items ${item.category_class} overlay-hover">
-                                    <div class="overlay-effect">
-                                        <a href="#"><img src="${item.image_url}" alt=""></a>
-                                        <div class="gallery-hover-effect">
-                                            <a class="gallery-icon venobox" href="${item.image_url}"><i class="fa fa-image"></i></a>
-                                            <span class="gallery-text">${item.title}</span>
-                                        </div>
-                                    </div>
-                                </div>`;
-                            galleryContainer.innerHTML += block;
-                        });
-
-
-                        if (typeof $.fn.venobox === 'function') {
-                            $('.venobox').venobox();
-                        }
-                    })
-                    .catch(err => {
-                        console.error('AJAX xatolik:', err);
-                    });
-            });
-        });
-    });
-</script>
 {% endblock %}

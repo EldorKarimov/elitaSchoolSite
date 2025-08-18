@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} {% trans "O'qituvchi ma'lumotlari" %} {% endblock %}
+
+{% block content %}
+<!--Breadcrumb Banner Area Start-->
+<div class="breadcrumb-banner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-text">
+                    <h1 class="text-center">Classes</h1>
+                    <div class="breadcrumb-bar">
+                        <ul class="breadcrumb">
+                            <li><a href="index.html">Home</a></li>
+                            <li>Classes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Breadcrumb Banner Area-->
+<!--Class Grid Area Start-->
+<div class="class-grid-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="class-menu">
+                    <div class="class-icon">
+                        <a href="class-grid.html" class="active"><i class="fa fa-th-large"></i></a>
+                    </div>
+                    <div class="class-icon">
+                        <a href="class-list.html"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <div class="search-container">
+                        <form action="#" method="post">
+                            <input type="text" placeholder="Search our classes" />
+                            <button class="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for class_item in school_classes %}
+            <div class="col-lg-4 col-md-6">
+                <div class="single-class">
+                    <div class="single-class-image">
+                        <a href="#">
+                            <img src="{{ class_item.image_card.url }}" alt="">
+                            <span class="class-date">Apr 21 <span>2016</span></span>
+                        </a>
+                    </div>
+                    <div class="single-class-text">
+                        <div class="class-des">
+                            <h4><a href="#">{{ class_item.name }}</a></h4>
+                            <p>Labore sequi impedit expedita alias dolore, nulla consequuntur tempore at voluptatibus
+                                fugit quo nihil fugiat! alias ut delectus cupiditate voluptatum.</p>
+                        </div>
+                        <div class="class-schedule">
+                            <span>AGE: 5 - 6 years</span>
+                            <span>CLASS SIZE: 25</span>
+                            <span class="arrow"><a href="#"><i class="fa fa-angle-right"></i></a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pagination-content">
+                    <div class="pagination-button">
+                        <ul class="pagination">
+                            <li class="current"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                        </ul>
+                        <span>Page:</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Class Grid Area-->
+{% endblock %}

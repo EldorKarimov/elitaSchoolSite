@@ -4,3 +4,4 @@ pillow==11.1.0
 python-decouple==3.8
 django-ckeditor==6.7.2
 django-modeltranslation==0.19.13
+django-imagekit==5.0.0

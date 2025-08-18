@@ -36,7 +36,11 @@ class News(BaseModel):
     slug = models.SlugField(max_length=255, unique=True, verbose_name=_('Slug'))
     content = RichTextUploadingField(verbose_name=_('Mazmuni'))
 
-    image = models.ImageField(upload_to='media/news/images', verbose_name=_('Rasm'))
+    image = models.ImageField(
+        upload_to='media/news/images',
+        verbose_name=_('Rasm'),
+        help_text=_('Yangilik rasmni yuklang 870x501')
+    )
 
     # 108x74 PNG small image
     image_small = ImageSpecField(

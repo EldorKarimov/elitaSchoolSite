@@ -24,3 +24,4 @@ class NewsDetailView(View):
             'tags': Tag.objects.all(),
         }
         return render(request, 'news/news-detail.html', context)
+    

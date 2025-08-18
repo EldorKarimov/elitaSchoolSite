@@ -1,7 +1,72 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %} {% trans "Yangiliklar ro'yxati" %} {% endblock %}
 
 {% block content %}
-
+<!--Breadcrumb Banner Area Start-->
+<div class="breadcrumb-banner-area blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-text">
+                    <h1 class="text-center">Blog</h1>
+                    <div class="breadcrumb-bar">
+                        <ul class="breadcrumb">
+                            <li><a href="index.html">Home</a></li>
+                            <li>Blog</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Breadcrumb Banner Area-->
+<!--Blog Fullwidth Area Start-->
+<div class="blog-fullwidth-area section-padding blog-two">
+    <div class="container">
+        <div class="row">
+            {% for new in news %}
+            <div class="col-lg-4 col-md-6">
+                <div class="single-blog-item overlay-hover">
+                    <div class="single-blog-image">
+                        <div class="overlay-effect">
+                            <a href="#">
+                                <img src="{{ new.image.url }}" alt="">
+                                <span class="class-date">Dec 21 <span>2015</span></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="single-blog-text">
+                        <h4><a href="blog-details.html">{{ new.title }}</a></h4>
+                        <div class="blog-date">
+                            <span><i class="fa fa-calendar"></i>08 Apr, 2016</span>
+                        </div>
+                        <p>{{ new.content|truncatewords:5 }}</p>
+                        <a href="blog-details.html">Read more.</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pagination-content">
+                    <div class="pagination-button">
+                        <ul class="pagination">
+                            <li class="current"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                        </ul>
+                        <span>Page:</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Blog Fullwidth Area-->
 {% endblock %}

@@ -46,30 +46,6 @@ class SchoolClassDetailView(View):
             'other_classes':other_classes
         }
         return render(request, 'school/class-details.html', context)
-    
-
-class GalleryAjaxView(View):
-    def get(self, request, *args, **kwargs):
-        cat_id = request.GET.get('category_id')
-        print('AJAX category_id:', cat_id)
-
-        if cat_id == 'all':
-            photos = Gallery.objects.all()
-        else:
-            try:
-                cat_uuid = UUID(cat_id)  # ← bu yerda UUID obyektga aylantiramiz
-                photos = Gallery.objects.filter(gallery_category__id=cat_uuid)
-            except ValueError:
-                return JsonResponse({'images': []})
-
-        data = [
-            {
-                'title': p.title,
-                'image_url': p.image.url,
-                'category_class': p.gallery_category.name.lower().replace(' ', '-')
-            } for p in photos
-        ]
-        return JsonResponse({'images': data})
 
 
 class TeacherDetailsView(View):
@@ -79,3 +55,25 @@ class TeacherDetailsView(View):
             'teacher': teacher,
         }
         return render(request, 'school/teacher-info.html', context)
+
+class GalleryListView(View):
+    def get(self, request, category_id = None):
+        galleries = Gallery.objects.all()
+        if category_id:
+            gallery_category = get_object_or_404(GalleryCategory, id=category_id)
+            galleries = galleries.filter(gallery_category=gallery_category)
+
+        gallery_categories = GalleryCategory.objects.all()
+        context = {
+            'galleries': galleries,
+            'gallery_categories': gallery_categories
+        }
+        return render(request, 'school/gallery.html', context)
+    
+class SchoolClassesList(View):
+    def get(self, request):
+        school_classes = SchoolClass.objects.all()
+        context = {
+            'school_classes':school_classes
+        }
+        return render(request, 'school/class-list.html', context)

@@ -62,7 +62,8 @@ class Teacher(BaseModel):
     )
     image = models.ImageField(
         upload_to='accounts/teacher/', 
-        verbose_name=_("Rasm")
+        verbose_name=_("Rasm"),
+        help_text=_("O'qituvchi rasmni yuklang 600x705")
     )
 
     # 90x90 PNG small image
@@ -81,10 +82,10 @@ class Teacher(BaseModel):
         options={'quality': 100}
     )
 
-    # 102x102 PNG large image
+    # 570x670 PNG large image
     image_large = ImageSpecField(
         source='image',
-        processors=[ResizeToFill(600, 705)],
+        processors=[ResizeToFill(570, 670)],
         format='PNG',
         options={'quality': 100}
     )
