@@ -11,45 +11,34 @@
 <div class="slider-area slider-style-1">
     <div class="preview-2">
         <div id="nivoslider" class="slides">
-            <img src="{% static 'img/slider/1.jpg' %}" alt="" title="#slider-1-caption1" />
-            <img src="{% static 'img/slider/2.jpg' %}" alt="" title="#slider-1-caption2" />
+            {% for slider in sliders %}
+            <img src="{{ slider.image.url }}" alt="{{ slider.title }}" title="#slider-caption-{{ forloop.counter }}" />
+            {% endfor %}
         </div>
-        <div id="slider-1-caption1" class="nivo-html-caption nivo-caption">
+        
+        {% for slider in sliders %}
+        <div id="slider-caption-{{ forloop.counter }}" class="nivo-html-caption nivo-caption">
             <div class="banner-content slider-1">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-7 col-md-7">
-                            <div class="text-content">
-                                <h1 class="title1">Education for Kids</h1>
-                                <p class="sub-title">Donec sollicitudin lacus in felis luctus blandit. Ut hendrerit
-                                    mattis justo<br> at susp, vivamus orci urna.</p>
+                            <div class="text-content {% if forloop.counter > 1 %}slide-2 hidden-xs{% endif %}">
+                                <h1 class="title1">{{ slider.title }}</h1>
+                                <p class="sub-title">{{ slider.short_content }}</p>
+                                {% if slider.button_text and slider.button_link %}
                                 <div class="banner-readmore">
-                                    <a title="Read more" href="#">Enroll your child</a>
+                                    <a title="{{ slider.button_text }}" href="{{ slider.button_link }}">
+                                        {{ slider.button_text }}
+                                    </a>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="slider-1-caption2" class="nivo-html-caption nivo-caption">
-            <div class="banner-content slider-1">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-7 col-md-7">
-                            <div class="text-content slide-2 hidden-xs">
-                                <h1 class="title1">Education for Kids</h1>
-                                <p class="sub-title">Donec sollicitudin lacus in felis luctus blandit. Ut hendrerit
-                                    mattis justo<br> at susp, vivamus orci urna.</p>
-                                <div class="banner-readmore">
-                                    <a title="Read more" href="#">Enroll your child</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 <!--End of Slider Area-->
@@ -151,7 +140,7 @@
 </div>
 <!--End of Class Area-->
 <!--Register Area Start-->
-<div class="register-area">
+<!-- <div class="register-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-md-7 col-12">
@@ -179,7 +168,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--End of Register Area-->
 <!--Service Area Start-->
 <div class="service-area section-padding">
@@ -505,7 +494,6 @@
         </div>
         
     </div>
-    <a href="{% url 'news:news_list' %}" class = "btn btn-outline-primary">Barchasi</a>
 </div>
 <!--End of Blog Area-->
 <!--Newsletter Area Start-->

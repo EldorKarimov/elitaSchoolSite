@@ -14,7 +14,12 @@ class BaseModel(models.Model):
         abstract = True
 
 class Slider(BaseModel):
+    title = models.CharField(max_length=255, null=True, verbose_name=_('Sarlavha'))
+    short_content = models.TextField(verbose_name=_('Tavsif'), blank=True, null=True)
+    button_text = models.CharField(max_length=100, verbose_name=_('Tugma matni'), blank=True, null=True)
+    button_link = models.URLField(verbose_name=_('Tugma havolasi'), blank=True, null=True)
     image = models.ImageField(upload_to='media/slider', verbose_name=_('Slider rasmi'))
+    
     is_available = models.BooleanField(default=False)
 
     def __str__(self):
