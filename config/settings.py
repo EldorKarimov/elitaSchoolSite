@@ -172,3 +172,5 @@ MODELTRANSLATION_LANGUAGES = ('uz', 'ru', 'en')  # Languages ​​to be transla
 LOCALE_PATHS = [
     BASE_DIR / 'locale'
 ]
+
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", cast = Csv())
