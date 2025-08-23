@@ -168,7 +168,12 @@ class SchoolClass(BaseModel):
     transportation = models.CharField(max_length=11, choices=TransportationChoices.choices, verbose_name=_('Transport xizmati'))
     food = models.CharField(max_length=50, verbose_name=_('Ovqatlanish'))
     description = RichTextUploadingField(verbose_name=_('Tavsif'))
-    image_card = models.ImageField(upload_to='class/images/card', null=True, verbose_name=_("Sinf rasmi kard"))
+    image_card = models.ImageField(
+        upload_to='class/images/card',
+        null=True,
+        help_text=_("Sinf rasmi 800x686 bo'lishi kerak"),
+        verbose_name=_("Sinf rasmi kard")
+    )
     pupil_birth_year = models.PositiveIntegerField(
         default=2015,
         validators=[MinValueValidator(2000), MaxValueValidator(2025)],
@@ -216,7 +221,11 @@ class SchoolClass(BaseModel):
         verbose_name_plural = _('Sinflar')
 
 class SchoolClassImage(BaseModel):
-    image = models.ImageField(upload_to='class/images', verbose_name=_('Rasm'))
+    image = models.ImageField(
+            upload_to='class/images',
+            help_text=_("Rasm 800x686 hajmda bo'lishi kerak"),
+            verbose_name=_('Rasm')
+        )
     school_class = models.ForeignKey(SchoolClass, on_delete=models.CASCADE, verbose_name=_('Sinf'))
 
     def __str__(self):
@@ -238,7 +247,11 @@ class GalleryCategory(BaseModel):
 
 class Gallery(BaseModel):
     title = models.CharField(max_length=128, verbose_name=_('Sarlavha'))
-    image = models.ImageField(upload_to='gallery/', verbose_name=_('Rasm'))
+    image = models.ImageField(
+        upload_to='gallery/',
+        help_text=_("Rasm 800x686 hajmda bo'lishi kerak"),
+        verbose_name=_('Rasm')
+    )
     gallery_category = models.ForeignKey(GalleryCategory, on_delete=models.CASCADE, verbose_name=_('Galereya kategoriyasi'))
 
     def __str__(self):
