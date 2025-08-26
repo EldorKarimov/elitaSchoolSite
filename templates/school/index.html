@@ -171,7 +171,7 @@
 </div> -->
 <!--End of Register Area-->
 <!--Service Area Start-->
-<div class="service-area section-padding">
+<div class="service-area section-padding" id="services">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -300,7 +300,7 @@
 </div>
 <!--End of Fun Factor Area-->
 <!--Teachers Area Start-->
-<div class="teachers-area section-margin">
+<div class="teachers-area section-margin" id="teachers">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -497,24 +497,27 @@
 </div>
 <!--End of Blog Area-->
 <!--Newsletter Area Start-->
-<div class="newsletter-area">
+<div class="newsletter-area" id="contact">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <form class="newsletter-container">
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-12">
-                            <h4>You want to know more <br>
-                                infomation? send us a mail!</h4>
+                            <h4>Qo'shimcha ma'lumot <br>
+                                olish uchun ariza qoldiring!</h4>
+                            <p>Biz sizga qisqa vaqt ichida javob beramiz</p>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-6">
-                            <input type="text" name="subject" placeholder="Subject*">
-                            <input type="text" name="name" placeholder="Your Name*">
-                            <input type="email" name="email" placeholder="Your Email*">
+                            <input type="text" name="subject" placeholder="Murojaat mavzusi*" required>
+                            <input type="text" name="name" placeholder="To'liq ismingiz*" required>
+                            <input type="email" name="email" placeholder="Elektron pochta*" required>
                         </div>
                         <div class="col-lg-6 col-md-4 col-sm-6">
-                            <textarea name="message" id="newsletter-msg" placeholder="Your Message"></textarea>
-                            <button class="button-default">Send</button>
+                            <textarea name="message" id="newsletter-msg" placeholder="Xabaringizni bu yerga yozing..." rows="5"></textarea>
+                            <button type="submit" class="button-default">
+                                <i class="fa fa-paper-plane"></i> Xabar yuborish
+                            </button>
                         </div>
                     </div>
                 </form>

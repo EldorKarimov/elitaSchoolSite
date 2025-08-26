@@ -88,12 +88,12 @@
                                     <ul id="nav">
                                         <li class="current"><a href="{% url 'school:home' %}">Bosh sahifa</a>
                                         </li>
-                                        <li><a href="{% url 'school:home' %}#classes">Sinflar</a></li>
-                                        <li><a href="#">Xizmatlar</a></li>
-                                        <li><a href="#">O'qituvchilar</a></li>
-                                        <li><a href="{% url 'school:home' %}#gallery">Galereya</a></li>
-                                        <li><a href="{% url 'school:home' %}#news">Yangiliklar</a></li>
-                                        <li><a href="contact.html">Aloqa</a></li>
+                                        <li><a href="{% url 'school:school_class_list' %}">Sinflar</a></li>
+                                        <li><a href="{% url 'school:home' %}#services">Xizmatlar</a></li>
+                                        <li><a href="{% url 'school:home' %}#teachers">O'qituvchilar</a></li>
+                                        <li><a href="{% url 'school:gallery_list' %}">Galereya</a></li>
+                                        <li><a href="{% url 'news:news_list' %}">Yangiliklar</a></li>
+                                        <li><a href="{% url 'school:home' %}#contact">Aloqa</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -131,12 +131,12 @@
                             <ul id="nav">
                                 <li class="current"><a href="{% url 'school:home' %}">Bosh sahifa</a>
                                 </li>
-                                <li><a href="about.html">Sinflar</a></li>
-                                <li><a href="#">Xizmatlar</a></li>
-                                <li><a href="#">O'qituvchilar</a></li>
-                                <li><a href="#">Galereya</a></li>
-                                <li><a href="#">Yangiliklar</a></li>
-                                <li><a href="contact.html">Aloqa</a></li>
+                                <li><a href="{% url 'school:school_class_list' %}">Sinflar</a></li>
+                                <li><a href="{% url 'school:home' %}#services">Xizmatlar</a></li>
+                                <li><a href="{% url 'school:home' %}#teachers">O'qituvchilar</a></li>
+                                <li><a href="{% url 'school:gallery_list' %}">Galereya</a></li>
+                                <li><a href="{% url 'news:news_list' %}">Yangiliklar</a></li>
+                                <li><a href="{% url 'school:home' %}#contact">Aloqa</a></li>
                             </ul>
                         </nav>
                     </div>

@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.http import JsonResponse
 from uuid import UUID
+from django.core.paginator import Paginator
 
 from common.models import Slider, About
 from news.models import News, NewsCategory, Tag
@@ -32,10 +33,13 @@ class HomePageView(View):
 class SchoolClassListView(View):
     def get(self, request):
         school_classes = SchoolClass.objects.all()
+        paginator = Paginator(school_classes, 1)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
-            'classes':school_classes
+            'classes':page_obj
         }
-        return render(request, 'school/classes.html', context)
+        return render(request, 'school/class-list.html', context)
 
 class SchoolClassDetailView(View):
     def get(self, request, slug):
