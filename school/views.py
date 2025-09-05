@@ -55,8 +55,10 @@ class SchoolClassDetailView(View):
 class TeacherDetailsView(View):
     def get(self, request, teacher_id):
         teacher = get_object_or_404(Teacher, id=teacher_id)
+        my_classes = SchoolClass.objects.filter(teachers__in=[teacher])
         context = {
             'teacher': teacher,
+            'my_classes':my_classes
         }
         return render(request, 'school/teacher-info.html', context)
 
@@ -68,8 +70,11 @@ class GalleryListView(View):
             galleries = galleries.filter(gallery_category=gallery_category)
 
         gallery_categories = GalleryCategory.objects.all()
+        paginator = Paginator(galleries, 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
-            'galleries': galleries,
+            'galleries': page_obj,
             'gallery_categories': gallery_categories
         }
         return render(request, 'school/gallery.html', context)
@@ -77,7 +82,10 @@ class GalleryListView(View):
 class SchoolClassesList(View):
     def get(self, request):
         school_classes = SchoolClass.objects.all()
+        paginator = Paginator(school_classes, 9)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
-            'school_classes':school_classes
+            'school_classes':page_obj
         }
         return render(request, 'school/class-list.html', context)

@@ -70,23 +70,28 @@
                 <div class="pagination-content">
                     <div class="pagination-button">
                         <ul class="pagination">
-                            {% if classes.has_previous %}
-                            <li><a href="?page={{ classes.paginator.previous_page_number }}"><i class="fa fa-caret-left"></i></a></li>
+                            {% if school_classes.has_previous %}
+                            <li><a href="?page={{ school_classes.previous_page_number }}"><i class="fa fa-caret-left"></i></a></li>
                             {% else %}
-                            <li class="disabled"><i class="fa fa-caret-left"></i></li>
+                            <li><a href="#"><i class="fa fa-caret-left"></i></a></li>
                             {% endif %}
-                            {% for num in classes.paginator.page_range %}
-                            <li class="current"><a href="#">{{ num }}</a></li>
-                            {% endfor %}
-                            {% if classes.has_next %}
-                            <li><a href="?page={{ classes.paginator.next_page_number }}"><i class="fa fa-caret-right"></i></a></li>
+
+
+                            {% for page_item in school_classes.paginator.page_range %}
+                            {% if page_item == school_classes.number %}
+                            <li class="current"><a href="?page={{ page_item }}">{{ page_item }}</a></li>
                             {% else %}
-                            <li class="disabled">
-                                <i class="fa fa-caret-right"></i>
-                            </li>
+                            <li><a href="?page={{ page_item }}">{{ page_item }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if school_classes.has_next %}
+                            <li><a href="?page={{ school_classes.next_page_number }}"><i class="fa fa-caret-right"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a href="#"><i class="fa fa-caret-right"></i></a></li>
                             {% endif %}
                         </ul>
-                        <span>Page:</span>
+                        <span>{% trans "Sahifa" %}:</span>
                     </div>
                 </div>
             </div>

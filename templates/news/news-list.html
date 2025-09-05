@@ -10,11 +10,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="breadcrumb-text">
-                    <h1 class="text-center">Blog</h1>
+                    <h1 class="text-center">{% trans "Yangiliklar" %}</h1>
                     <div class="breadcrumb-bar">
                         <ul class="breadcrumb">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Blog</li>
+                            <li><a href="{% url 'school:home' %}">{% trans "bosh sahifa" %}</a></li>
+                            <li>{% trans "Yangiliklar" %}</li>
                         </ul>
                     </div>
                 </div>
@@ -32,19 +32,19 @@
                 <div class="single-blog-item overlay-hover">
                     <div class="single-blog-image">
                         <div class="overlay-effect">
-                            <a href="#">
-                                <img src="{{ new.image.url }}" alt="">
-                                <span class="class-date">Dec 21 <span>2015</span></span>
+                            <a href="{% url 'news:news_detail' new.slug %}">
+                                <img src="{{ new.image.url }}" alt="Yangilik rasmi">
+                                <span class="class-date">{{ new.get_formatted_date }} <span>{{ new.get_formatted_year }}</span></span>
                             </a>
                         </div>
                     </div>
                     <div class="single-blog-text">
-                        <h4><a href="blog-details.html">{{ new.title }}</a></h4>
+                        <h4><a href="{% url 'news:news_detail' new.slug %}">{{ new.title }}</a></h4>
                         <div class="blog-date">
-                            <span><i class="fa fa-calendar"></i>08 Apr, 2016</span>
+                            <span><i class="fa fa-calendar"></i>{{ new.created|date}}</span>
                         </div>
-                        <p>{{ new.content|truncatewords:5 }}</p>
-                        <a href="blog-details.html">Read more.</a>
+                        <p>{{ new.content|truncatewords:5|safe }}</p>
+                        <a href="{% url 'news:news_detail' new.slug %}">{% trans "ko'proq o'qish" %}</a>
                     </div>
                 </div>
             </div>
@@ -55,13 +55,28 @@
                 <div class="pagination-content">
                     <div class="pagination-button">
                         <ul class="pagination">
-                            <li class="current"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                            {% if news.has_previous %}
+                            <li><a href="?page={{ news.previous_page_number }}"><i class="fa fa-caret-left"></i></a></li>
+                            {% else %}
+                            <li><a href="#"><i class="fa fa-caret-left"></i></a></li>
+                            {% endif %}
+
+
+                            {% for page_item in news.paginator.page_range %}
+                            {% if page_item == news.number %}
+                            <li class="current"><a href="?page={{ page_item }}">{{ page_item }}</a></li>
+                            {% else %}
+                            <li><a href="?page={{ page_item }}">{{ page_item }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if news.has_next %}
+                            <li><a href="?page={{ news.next_page_number }}"><i class="fa fa-caret-right"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                            {% endif %}
                         </ul>
-                        <span>Page:</span>
+                        <span>{% trans "Sahifa" %}:</span>
                     </div>
                 </div>
             </div>

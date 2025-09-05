@@ -63,13 +63,28 @@
                 <div class="pagination-content">
                     <div class="pagination-button">
                         <ul class="pagination">
-                            <li class="current"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                            {% if galleries.has_previous %}
+                            <li><a href="?page={{ galleries.previous_page_number }}"><i class="fa fa-caret-left"></i></a></li>
+                            {% else %}
+                            <li><a href="#"><i class="fa fa-caret-left"></i></a></li>
+                            {% endif %}
+
+
+                            {% for page_item in galleries.paginator.page_range %}
+                            {% if page_item == galleries.number %}
+                            <li class="current"><a href="?page={{ page_item }}">{{ page_item }}</a></li>
+                            {% else %}
+                            <li><a href="?page={{ page_item }}">{{ page_item }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if galleries.has_next %}
+                            <li><a href="?page={{ galleries.next_page_number }}"><i class="fa fa-caret-right"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                            {% endif %}
                         </ul>
-                        <span>Page:</span>
+                        <span>{% trans "Sahifa" %}:</span>
                     </div>
                 </div>
             </div>
