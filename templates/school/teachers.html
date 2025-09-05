@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} {% trans "O'qituvchilar" %} {% endblock %}
+
+{% block content %}
+<!--Breadcrumb Banner Area Start-->
+<div class="breadcrumb-banner-area teachers">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-text">
+                    <h1 class="text-center">{% trans "O'qituvchilar" %}</h1>
+                    <div class="breadcrumb-bar">
+                        <ul class="breadcrumb">
+                            <li><a href="index.html">{% trans "bosh sahifa" %}</a></li>
+                            <li>{% trans "O'qituvchilar" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Breadcrumb Banner Area-->
+<!--Teacher Fullwidth Area Start-->
+<div class="teacher-fullwidth-area section-padding">
+    <div class="container">
+        <div class="row">
+            {% for teacher in teachers %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="single-teachers-column text-center">
+                    <div class="teachers-image-column">
+                        <a href="{% url 'school:teacher_info' teacher.id %}">
+                            <img src="{{ teacher.image.url }}" alt="O'qituvchi rasmi">
+                            <span class="image-hover">
+                                <span><i class="fa fa-edit"></i>{% trans "Profilni ko'rish" %}</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="teacher-column-carousel-text">
+                        <h4>{{ teacher.user.get_full_name }}</h4>
+                        <span>{{ teacher.position.name }}</span>
+                        <p>{{ teacher.about|slice:":50"|safe}}...</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-google-plus"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pagination-content">
+                    <div class="pagination-button">
+                        <ul class="pagination">
+                            {% if teachers.has_previous %}
+                            <li><a href="?page={{ teachers.previous_page_number }}"><i class="fa fa-caret-left"></i></a></li>
+                            {% else %}
+                            <li><a href="#"><i class="fa fa-caret-left"></i></a></li>
+                            {% endif %}
+
+
+                            {% for page_item in teachers.paginator.page_range %}
+                            {% if page_item == teachers.number %}
+                            <li class="current"><a href="?page={{ page_item }}">{{ page_item }}</a></li>
+                            {% else %}
+                            <li><a href="?page={{ page_item }}">{{ page_item }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if teachers.has_next %}
+                            <li><a href="?page={{ teachers.next_page_number }}"><i class="fa fa-caret-right"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                            {% endif %}
+                        </ul>
+                        <span>{% trans "Sahifa" %}:</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Teacher Fullwidth Area-->
+{% endblock %}

@@ -1,16 +1,16 @@
 {% load static %}
+{% load i18n %}
 <header>
     <div class="header-top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-8">
                     <div class="header-top-info">
-                        <span>Open hours: 8.00-18.00 Mon-Sat</span>
+                        <span>Open hours: 8.00-17.00 Mon-Sat</span>
                         <div class="social-links">
+                            <a href="#"><i class="fa fa-telegram"></i></a>
+                            <a href="#"><i class="fa-brands fa-youtube"></i></a>
                             <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             <a href="#"><i class="fa fa-instagram"></i></a>
                         </div>
                     </div>
@@ -86,13 +86,18 @@
                             <div class="mainmenu">
                                 <nav>
                                     <ul id="nav">
-                                        <li class="current"><a href="{% url 'school:home' %}">Bosh sahifa</a>
+                                        <li class="current"><a href="{% url 'school:home' %}">Bosh sahifa</a></li>
+                                        <li><a href="#">{% trans "Biz haqimizda" %}</a></li>
+                                        <li><a href="#">{% trans "Maktab" %} <i class="fa fa-angle-down"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{% url 'school:school_class_list' %}">Sinflar</a></li>
+                                                <li><a href="{% url 'school:teachers' %}">O'qituvchilar</a></li>
+                                                <li><a href="{% url 'news:news_list' %}">Yangiliklar</a></li>
+                                            </ul>
                                         </li>
-                                        <li><a href="{% url 'school:school_class_list' %}">Sinflar</a></li>
                                         <li><a href="{% url 'school:home' %}#services">Xizmatlar</a></li>
-                                        <li><a href="{% url 'school:home' %}#teachers">O'qituvchilar</a></li>
                                         <li><a href="{% url 'school:gallery_list' %}">Galereya</a></li>
-                                        <li><a href="{% url 'news:news_list' %}">Yangiliklar</a></li>
+                                        
                                         <li><a href="{% url 'school:home' %}#contact">Aloqa</a></li>
                                     </ul>
                                 </nav>
@@ -129,13 +134,17 @@
                     <div class="mobile-menu">
                         <nav id="dropdown">
                             <ul id="nav">
-                                <li class="current"><a href="{% url 'school:home' %}">Bosh sahifa</a>
+                                <li class="current"><a href="{% url 'school:home' %}">Bosh sahifa</a></li>
+                                <li><a href="#">{% trans "Biz haqimizda" %}</a></li>
+                                <li><a href="#">{% trans "Maktab" %} <i class="fa fa-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{% url 'school:school_class_list' %}">Sinflar</a></li>
+                                        <li><a href="{% url 'school:teachers' %}">O'qituvchilar</a></li>
+                                        <li><a href="{% url 'news:news_list' %}">Yangiliklar</a></li>
+                                    </ul>
                                 </li>
-                                <li><a href="{% url 'school:school_class_list' %}">Sinflar</a></li>
                                 <li><a href="{% url 'school:home' %}#services">Xizmatlar</a></li>
-                                <li><a href="{% url 'school:home' %}#teachers">O'qituvchilar</a></li>
                                 <li><a href="{% url 'school:gallery_list' %}">Galereya</a></li>
-                                <li><a href="{% url 'news:news_list' %}">Yangiliklar</a></li>
                                 <li><a href="{% url 'school:home' %}#contact">Aloqa</a></li>
                             </ul>
                         </nav>

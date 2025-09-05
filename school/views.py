@@ -3,6 +3,7 @@ from django.views import View
 from django.http import JsonResponse
 from uuid import UUID
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 from common.models import Slider, About
 from news.models import News, NewsCategory, Tag
@@ -51,6 +52,27 @@ class SchoolClassDetailView(View):
         }
         return render(request, 'school/class-details.html', context)
 
+
+class TeacherListView(View):
+    def get(self, request):
+        search = request.GET.get('search')
+        page_num = request.GET.get('page')
+
+        teachers = Teacher.objects.all().order_by('position__priority')
+        if search:
+            teachers = teachers.filter(Q(user__first_name = search)| Q(user__last_name = search))
+        else:
+            search = ''
+
+        paginator = Paginator(teachers, 9)
+        page_obj = paginator.get_page(page_num)
+        context = {
+            'teachers':page_obj,
+            'search':search
+        }
+        return render(request, 'school/teachers.html', context)
+
+        
 
 class TeacherDetailsView(View):
     def get(self, request, teacher_id):
