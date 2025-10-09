@@ -14,7 +14,7 @@
                     <h1 class="text-center">{% trans "O'qituvchilar" %}</h1>
                     <div class="breadcrumb-bar">
                         <ul class="breadcrumb">
-                            <li><a href="index.html">{% trans "bosh sahifa" %}</a></li>
+                            <li><a href="{% url 'school:home' %}">{% trans "bosh sahifa" %}</a></li>
                             <li>{% trans "O'qituvchilar" %}</li>
                         </ul>
                     </div>
@@ -33,7 +33,7 @@
                 <div class="single-teachers-column text-center">
                     <div class="teachers-image-column">
                         <a href="{% url 'school:teacher_info' teacher.id %}">
-                            <img src="{{ teacher.image.url }}" alt="O'qituvchi rasmi">
+                            <img src="{{ teacher.image.url }}" alt="{{ teacher.user.get_full_name }}">
                             <span class="image-hover">
                                 <span><i class="fa fa-edit"></i>{% trans "Profilni ko'rish" %}</span>
                             </span>
@@ -41,13 +41,13 @@
                     </div>
                     <div class="teacher-column-carousel-text">
                         <h4>{{ teacher.user.get_full_name }}</h4>
-                        <span>{{ teacher.position.name }}</span>
-                        <p>{{ teacher.about|slice:":50"|safe}}...</p>
+                        <span>{{ teacher.get_degree_type_display }} - {{ teacher.position.name|default:"O'qituvchi" }}</span>
+                        <p>{{ teacher.about|striptags|truncatewords:20 }}</p>
                         <div class="social-links">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-telegram"></i></a>
                             <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>

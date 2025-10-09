@@ -1023,8 +1023,8 @@ span.arrow > a:after {
 }
 .single-service-item:hover .single-service-text > p {display: block}
 .single-service-icon {
-    background: #f5b120 none repeat scroll 0 0;
-    border: 1px solid #f5b120;
+    background: #192f5e none repeat scroll 0 0;
+    border: 1px solid #192f5e;
     border-radius: 50%;
     color: #ffffff;
     display: inline-table;
@@ -1043,7 +1043,7 @@ span.arrow > a:after {
 }
 .single-service-item:hover .single-service-icon {
     background: #ffffff none repeat scroll 0 0;
-    color: #f5b120;
+    color: #192f5e;
 }
 .service-area .col-md-4:first-child .single-service-item-wrapper {
     margin-right: 30px;
@@ -3418,8 +3418,8 @@ span.schedule-time {
 /*  30. Scrollup
 /*----------------------------------------*/
 #scrollUp {
-    background: #f5b120 none repeat scroll 0 0 padding-box;
-    border: 3px solid rgba(245, 177, 32, 0.85);
+    background: #192f5e none repeat scroll 0 0 padding-box;
+    border: 3px solid rgba(25, 47, 94, 0.85);
     border-radius: 50%;
     bottom: 45px;
     color: #ffffff;
@@ -3436,8 +3436,8 @@ span.schedule-time {
 }
 #scrollUp:hover {
     background-color: #fff;
-    color: #1BB4B9;
-    border-color: rgba(27, 180, 185, 0.7);
+    color: #f5b120;
+    border-color: rgba(245,177,32, 0.7);
 }
 
 

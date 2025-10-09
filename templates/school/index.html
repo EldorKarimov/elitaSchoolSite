@@ -8,7 +8,7 @@
 
 {% block content %}
 <!--Slider Area Start-->
-<div class="slider-area slider-style-1">
+<div class="slider-area slider-five-area">
     <div class="preview-2">
         <div id="nivoslider" class="slides">
             {% for slider in sliders %}
@@ -497,27 +497,23 @@
 </div>
 <!--End of Blog Area-->
 <!--Newsletter Area Start-->
-<div class="newsletter-area" id="contact">
+<div class="newsletter-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-md-12">
                 <form class="newsletter-container">
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-12">
-                            <h4>Qo'shimcha ma'lumot <br>
-                                olish uchun ariza qoldiring!</h4>
-                            <p>Biz sizga qisqa vaqt ichida javob beramiz</p>
+                            <h4>{% trans "Ko'proq ma'lumot uchun <br>bizga murojaat qiling!" %}</h4>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-6">
-                            <input type="text" name="subject" placeholder="Murojaat mavzusi*" required>
-                            <input type="text" name="name" placeholder="To'liq ismingiz*" required>
-                            <input type="email" name="email" placeholder="Elektron pochta*" required>
+                            <input type="text" name="subject" placeholder="{% trans "Mavzu*" %}">
+                            <input type="text" name="name" placeholder="{% trans "To'liq ismingiz*" %}">
+                            <input type="email" name="email" placeholder="{% trans "Emailingiz*" %}">
                         </div>
                         <div class="col-lg-6 col-md-4 col-sm-6">
-                            <textarea name="message" id="newsletter-msg" placeholder="Xabaringizni bu yerga yozing..." rows="5"></textarea>
-                            <button type="submit" class="button-default">
-                                <i class="fa fa-paper-plane"></i> Xabar yuborish
-                            </button>
+                            <textarea name="message" id="newsletter-msg" placeholder="{% trans "Murojaatingiz*" %}"></textarea>
+                            <button class="button-default">{% trans "Yuborish" %}</button>
                         </div>
                     </div>
                 </form>
